@@ -1,0 +1,148 @@
+  <script>
+  <!--
+  function resetInput() {
+    document.formInput.dataPurpose.value = "";
+    document.formInput.dataID2.value = "";
+    document.formInput.dataPurpose.focus();
+  }//resetInput
+
+  // fungsi untuk menyiapkan data diedit
+  function editData(index) {
+    if (index != "") {
+      document.formInput.dataPurpose.value = eval("document.formData.detailPurpose" + index + ".value");
+      document.formInput.dataNote.value = eval("document.formData.detailNote" + index + ".value");
+	  document.formInput.dataID2.value = eval("document.formData.chkID" + index + ".value");
+      document.formInput.dataPurpose.select();
+    }
+  }//editData
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+    if (document.formInput.dataPurpose.value == "") {
+      document.formInput.dataPurpose.focus();
+      return false;
+    }
+    return true;
+  }//validInput
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataPurpose.focus();
+  }//initPage
+  -->
+  </script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td class="pageHeaderTitle" align="left">
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">[var.strPageTitle]</td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+<!--
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td nowrap="nowrap"><strong>
+              <a href="loan_edit.php">[var.strWordsDataEntry]</a> | 
+              <a href="loan_list.php">[var.strWordsLoanList]</a> | 
+              <a  href="loan_type.php">[var.strWordsLoanType]</a> | 
+              [var.strWordsLoanPurpose]
+            </strong></td>
+          </tr>
+-->
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="inputTop" style="display:[var.strDisplay]">
+      <td>&nbsp;&nbsp;[var.strWordsInputData]</td>
+    </tr>
+    <tr class="inputBox" style="display:[var.strDisplay]">
+      <td>
+      <form action="" method="post" name="formInput" id="formInput" onsubmit="return validInput();">
+        <table align="left" border="0" cellpadding="3" cellspacing="0">
+          <tbody>
+            <tr>
+              <td nowrap="nowrap">&nbsp;[var.strWordsLoanPurpose]&nbsp;</td>
+              <td>:&nbsp; <input name="dataID" id="dataID2" type="hidden"></td>
+              <td nowrap="nowrap"> <input name="dataPurpose" id="dataPurpose" size="80" maxlength="95" type="text"></td>
+            </tr>
+			<tr valign="top">
+                    <td nowrap="nowrap">&nbsp;[var.strWordsNote]</td>
+                    <td align="center">:&nbsp;</td>
+                    <td><textarea name="dataNote" id="dataNote" cols=30 rows=2 wrap='virtual' "></textarea></td>
+            </tr>
+              <td nowrap="nowrap">&nbsp;&nbsp;</td>
+              <td>&nbsp;</td>
+              <td nowrap="nowrap">
+              <input name="btnSave" id="btnSave" value="[var.strWordsSave]" type="submit">
+              <input name="btnNew" id="btnNew2" value="[var.strWordsClear]" onclick="resetInput();" type="button">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="listTop"><strong>[var.strWordsListOfLoanPurpose]</strong></td>
+    </tr>
+    <tr>
+      <td>
+      <form action="" method="post" name="formData" id="formData">
+        <table class="gridTable" border="0" cellpadding="1" cellspacing="0">
+          <tbody>
+            <tr class="tableHeader">
+              <td width="5">&nbsp;</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsLoanPurpose]</td>
+			  <td class="tableHeader" nowrap="nowrap">[var.strWordsNote]</td>
+              <td width="19">&nbsp;</td>
+            </tr>
+            [var.strDataDetail]
+            <tr>
+              <td><input name="chkAll" id="chkAll" value="checkbox" onclick="checkAll();" type="checkbox"></td>
+              <td colspan="3">[var.strButtonList]<input name="totalData" id="totalData" value="[var.intTotalData]" type="hidden"></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,290 @@
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/calendar-en.js"></script>
+  <link href="../css/calendar.css" rel="stylesheet" type="text/css">
+  <script src="scripts/acEmployee.js"></script>
+  <script src="scripts/ylib.js"></script>
+  <script src="employee_data.php"></script>
+  <link href="../css/ac.css" rel="stylesheet" type="text/css">
+  <script src="../js/jquery-ui/jquery.min.js"></script>
+  <script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  // function onCodeBlur(nik) {
+  //   var xmlhttp = new XMLHttpRequest();
+  //   var xmlhttp = new XMLHttpRequest();
+  //   xmlhttp.onreadystatechange = function() {
+  //   if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+  //       document.getElementById("employee_name").innerHTML = xmlhttp.responseText;
+  //   }
+  //   }
+  //   xmlhttp.open("GET","loan_ajax.php?nik="+nik,true);
+  //   xmlhttp.send();
+  //   // obj.innerHTML = "test";
+  //   return 1;
+
+  </script>
+  <script>
+
+  jQuery(function($) {
+  	$('#dataEmployee').on('blur', function(){
+  		var dataEmp=$(this).val();
+  		$.ajax({
+  			type:"POST",
+  			url:"loan_edit_hrd.php",
+  			data: "nik=" + dataEmp,
+  			success: function(data){
+  				var result = data;
+  				$("#result").html(data);
+  			}
+  		});
+  	});
+  })
+  </script>
+  <script>
+  <!--
+
+  // fungsi menghitung cicilan bulanan
+  function getMonthlyPayment() {
+    var amount = document.formInput.dataAmount.value;
+    var periode = document.formInput.dataPeriode.value;
+    var interest = document.formInput.dataInterest.value;
+    var obj = document.getElementById("monthlyPayment");
+
+    if (isNaN(amount) || isNaN(periode) || isNaN(interest)) {
+      monthly = 0;
+    } else {
+      if (periode == 0) {
+        monthly = 0;
+      } else {
+        bunga = (interest / 100) * amount;
+        total = parseFloat(bunga) + parseFloat(amount);
+        monthly = total / periode;
+      }
+    }
+    obj.innerHTML = monthly;
+    return 1;
+  }// getMonthlyPayment
+
+  // mengambil tanggal terakhir pembayaran
+  function getLastMonth() {
+    var periode = document.formInput.dataPeriode.value;
+    var bulan = document.formInput.dataMonthStart.value;
+    var tahun = document.formInput.dataYearStart.value;
+
+    if (periode == "" || periode == "undefined" || isNaN(periode)) {
+      return false;
+    }
+    if (bulan == "" || bulan == "undefined" || isNaN(bulan)) {
+      return false;
+    }
+    if (tahun == "" || tahun == "undefined" || isNaN(tahun)) {
+      return false;
+    }
+
+    nextBulan = parseFloat(periode) + parseFloat(bulan) - 1;
+    selisihTahun = Math.floor((nextBulan)/12);
+    sisaBulan = (nextBulan % 12);
+    if (sisaBulan == 0) {
+      sisaBulan = 12;
+      selisihTahun--;
+    }
+
+    nextTahun = parseFloat(tahun) + selisihTahun;
+
+    document.formInput.dataMonthFinish.value = sisaBulan;
+    document.formInput.dataYearFinish.value = nextTahun;
+
+  }//getLastMonth
+
+  function clearForm() {
+    location.href = "loan_edit_hrd.php";
+
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataPeriode.value = 1;
+    document.formInput.dataInterest.value = 0;
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataEmployee.focus();
+
+    getMonthlyPayment();
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataEmployee.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+    init();
+    getMonthlyPayment();
+    getLastMonth();
+    // onCodeBlur();
+  }//initPage
+  -->
+  </script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td colspan="3" class="pageHeaderTitle" align="left">
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">[var.strPageTitle]</td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+<!--
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td nowrap="nowrap"><strong>
+              [var.strWordsDataEntry] |
+              <a href="loan_list.php">[var.strWordsLoanList]</a> |
+              <a  href="loan_type.php">[var.strWordsLoanType]</a> |
+              <a  href="loan_purpose.php">[var.strWordsLoanPurpose]</a>
+            </td>
+          </tr>
+-->
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="3" rowspan="1" class="[var.strMsgClass]"
+ align="center" valign="top">[var.strMessage]</td>
+    </tr>
+    <tr>
+      <td class="inputBox" valign="top" width="45%">
+      <form action="" method="post" name="formInput" id="formInput"
+ onsubmit="return validInput();">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tbody>
+            <tr>
+              <td valign="top">
+              <table align="left" border="0" cellpadding="1"
+ cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td align="center" width="15">&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap"> &nbsp;[var.strWordsEmpID]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputEmployee]&nbsp;<font color="red">*</font><br></td>
+                    <td><strong id="employee_name"></strong>&nbsp;</td>
+                    <!-- <strong id="employee_name"></strong>&nbsp;</td> -->
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;[var.strWordsLoanNo]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputNo]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;[var.strWordsLoanDate]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputDate]&nbsp;<font color="red">*</font>
+                    <input name="btnDate" id="btnDate" value=".." type="button"></td>
+                  </tr>
+                  <tr valign="top">
+                    <td height="15" nowrap="nowrap">&nbsp;[var.strWordsLoanType]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputType]&nbsp;<font color="red">*</font></td>
+                  </tr>
+                  <tr valign="top">
+                    <td height="15" nowrap="nowrap">&nbsp;[var.strWordsPurpose]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputPurpose]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td height="15" nowrap="nowrap">&nbsp;[var.strWordsAmount]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputAmount]&nbsp;<font color="red">*</font></td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap"> &nbsp;[var.strWordsPeriode]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputPeriode] [var.strWordsMonth]&nbsp;<font color="red">*</font></td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;[var.strWordsMargin]</td>
+                    <td align="center">:</td>
+                    <td>[var.strInputInterest] %&nbsp;<font color="red">*</font></td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;[var.strWordsMonthlyPayment]</td>
+                    <td align="center">:</td>
+                    <td><strong id="monthlyPayment">0</strong></td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;[var.strWordsstartPayment]</td>
+                    <td align="center">:</td>
+                    <td>[var.strInputStart]&nbsp;<font color="red">*</font></td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;[var.strWordsLastPayment]</td>
+                    <td align="center">:</td>
+                    <td>[var.strInputFinish]&nbsp;<font color="red">*</font></td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;[var.strWordsNote]</td>
+                    <td align="center">:</td>
+                    <td>[var.strInputNote]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td>&nbsp;</td>
+                    <td align="center">&nbsp;</td>
+                    <td> <input name="btnSave" id="btnSave"
+ value="[var.strWordsSave]" type="submit"> <input name="btnNew" id="btnNew"
+ value="[var.strWordsClear]" onclick="clearForm();" type="button"> <input
+ name="dataID" id="dataID" value="[var.strDataID]" type="hidden"></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td align="center">&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+              </td>
+              <td valign="top" width="20">&nbsp;</td>
+              <td valign="top">&nbsp; </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      </td>
+      <td class="inputBox" valign="top" width="45%"><br>
+            <strong id=result></strong>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,251 @@
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+
+  // fungsi untuk cek validasi
+  function validInput() {
+    return validateForm(document.formData);
+  }// validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    init();
+    onCodeBlur();
+  }//initPage
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnShow.click();
+    }
+  }//goPage
+
+
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+            <a href="setting_salary.php">[var.strWordsGeneralSetting]</a> |
+            <a href="salary_set.php">[var.strWordsSalarySet] </a>|
+            [var.strWordsEmployeeAllowance] |
+            <a href="salary_deduction.php">[var.strWordsEmployeeDeduction] </a>|
+            <a href="salary_basic_managerial.php">[var.strWordsManagerialAllowance] </a>|
+            <a href="salary_deduction_managerial.php">[var.strWordsManagerialDeduction]</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop"><strong>[var.strWordsFILTERDATA]</strong></td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" enctype="multipart/form-data" >
+    <table border="0">
+    <tr>
+        <td valign=top>
+        <table  align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td width="15" align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap> &nbsp;[var.strWordSalarySet]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputStartDate]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;Note</td>
+            <td align="center">:</td>
+            <td nowrap><textarea rows=1 cols=43 disabled>[var.strDataNote]</textarea></td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>&nbsp;[var.strWordEmployeeID]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputEmployee]<br><strong id="employee_name"> </strong></td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordActive]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputActive]</td>
+          </tr>
+       </table>
+       </td>
+       <td>&nbsp;&nbsp;&nbsp;</td>
+       <td valign=top>
+        <table border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td width="15" align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordFamilyStatus]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputFamilyStatus ]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap> &nbsp;[var.strWordPosition]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputPosition]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap> &nbsp;[var.strWordCurrency]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputCurrency]</td>
+          </tr>          <tr valign="top">
+            <td nowrap> &nbsp;Grade</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputGrade]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordEmployeeStatus]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputEmployeeStatus]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordBranch]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputBranch]</td>
+          </tr>
+        </table>
+       </td>
+       <td >&nbsp;&nbsp;&nbsp;</td>
+       <td valign=top>
+        <table  align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td width="15" align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap> &nbsp;[var.strWordCompany]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputCompany]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordDivision]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputDivision]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordDepartment]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputDepartment]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordSection]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputSection]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordSubSection]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputSubSection]</td>
+          </tr>
+					<tr valign="top">
+            <td>&nbsp;[var.strWordCostCenter]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputCostCenter]</td>
+          </tr>
+       </table>
+       </td>
+
+     </tr>
+     <tr valign="top">
+      <td>&nbsp;<input type=hidden name=dataPage value=1><input name="btnShow" type="submit" id="btnShow" value="Show Data"></td>
+      <td>
+       <!--<input name="btnShowImport" value="Import Data" type="button" onClick="showImport();">-->
+      </td>
+     </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr [var.strMsgClass]>
+    <td align="center">[var.strMessage]</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td ><strong>EMPLOYEE SALARY ALLOWANCE</strong></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData" onSubmit="return validInput()">
+        <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+
+          <tr align="center" class="tableHeader">
+            <td rowspan="2" nowrap>&nbsp;</td>
+            <td rowspan="2" nowrap>[var.strWordEmployeeID]</td>
+            <td rowspan="2" nowrap>[var.strWordEmployeeID2]</td>
+            <td rowspan="2" nowrap>[var.strWordEmployeeName]</td>
+            <td rowspan="2" nowrap>[var.strWordDivision]</td>
+            <td rowspan="2" nowrap>[var.strWordCostCenter]</td>
+            <td rowspan="2" nowrap>[var.strWordBranchContract]</td>
+            <td rowspan="2" nowrap>[var.strWordPosition]</td>
+            <td rowspan="2" nowrap>[var.strWordFunctional]</td>
+            <td rowspan="2" nowrap>[var.strWordJobGrade]</td>
+            <td rowspan="2" nowrap>Join Date</td>
+            <td rowspan="2" nowrap>Resign Date</td>
+
+
+            <td colspan="[var.strSpan1]" nowrap>[var.strWordAllowance]</td>
+          </tr>
+          <tr align="center" class="tableHeader">
+            [var.strHeader]
+            [var.strDataColumn]
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td colspan="2" nowrap>&nbsp;[var.strBtnSave]&nbsp;[var.strHidden]&nbsp;&nbsp;
+            </td>
+            <td colspan="[var.strSpan2]" align="center" nowrap>&nbsp;[var.strPaging]
+              <input type=hidden name=totalData value="[var.intTotalData]">
+              <input type=hidden name="dataDefault" value="">
+              <input type=hidden name="dataDefault2" value="">
+              <input type=hidden name="dataDefault3" value="">
+              <input name=totalColumn type=hidden id="totalColumn" value="[var.strSpan1]"> </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+      </form></td>
+  </tr>
+</table>
+<script>initPage_();</script>

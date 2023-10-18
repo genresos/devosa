@@ -1,0 +1,58 @@
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+  AC_targetElements = ["employee_name"];
+  function onCodeBlur() {
+  	var kode = document.formData.strIdentitasPemotongNIK.value;
+  	var nama = AC_getNameByCode(kode);
+		var obj = document.getElementById("employeeName");
+  	obj.innerHTML = nama;
+  	return 1;
+  }
+</script>
+<body leftmargin="10" topmargin="0"  marginheight="0" marginwidth="10">		
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  	<tr>
+    	<td class="pageHeaderTitle" align="left"> 
+    		<table border="0" cellpadding="1" cellspacing="0">
+        	<tbody>
+          	<tr>
+            	<td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+        			<td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+          	</tr>
+        	</tbody>
+      	</table>
+      </td>
+  	</tr>
+  	<tr>
+    	<td> 
+    		<table border="0" cellspacing="0" cellpadding="1">
+        	<tr>
+          	<td width="20" class="blank">&nbsp;</td>     
+       		</tr>
+      	</table>
+      </td>
+  	</tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr>
+    	<td valign="top" class="inputBox">
+    		<form name="form1" id="form1" method="post">
+       		[var.formInput; protect=no; htmlconv=no]
+				</form>	       		
+      </td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr>		
+    	<td>
+    		<form id="formData" method="post" name="formData">
+    			[var.strHidden]
+      		[var.dataGrid; protect=no; htmlconv=no]
+      	</form>
+      </td>
+    </tr>
+	</table>
+</body>
+</html>

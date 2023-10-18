@@ -1,0 +1,263 @@
+<script type="text/javascript" src="../js/calendar.js"></script>
+<script type="text/javascript" src="../js/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/acEmployee.js"></script>
+<script type="text/javascript" src="../js/ylib.js"></script>
+<script type="text/javascript" src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script type="text/javascript">
+  <!--
+
+  // fungsi untuk hide/unhide tombol print penolakan
+  // saat ditolak
+  function onResultChange() {
+    var x = document.formInput.dataResult.value;
+    gaya = "none"; //(x == 3) ? "" : "none"; // jangan tampilkan dulu
+    ylib_getObj("btnPrintLetter").style.display = gaya;
+  }
+
+  // fungsi untuk manggil print penolakana
+  function goPrintDenied() {
+    id = document.formInput.dataCandidateID.value;
+    if (id != "") {
+      url = "candidate_denied_letter.php?dataID=" + id;
+      window.open(url);
+    }
+  }
+
+  // fungsi untuk membuat surat, entah surat apa aja
+  // parameter: id proses, jika mengacu ke proses tertentu,
+  // jika tidak ada, maka dianggap akan proses biasa
+  function goCreateLetter() {
+    id = document.formInput.dataID.value;
+    candidate = document.formInput.dataCandidateID.value;
+    if (id != "" && candidate != "") {
+      url = "recruitment_process_letter.php?btnCreate=Create&dataProcessID=" + id;
+      url += "&dataCandidateID=" + candidate;
+      if (arguments.length > 0)
+        url += "&dataDetailID=" + arguments[0];
+      window.open(url, "letter", "statusbar=0");
+    } else {
+      alert("Please save data first!");
+    }
+  }
+  // fungsi untuk membuat surat, entah surat apa aja
+  // parameter: id proses, jika mengacu ke proses tertentu,
+  // jika tidak ada, maka dianggap akan proses biasa
+  function printInterview(id, type)
+  {
+    if (id != "" )
+    {
+      url = "recruitment_process_letter.php?btnInterview=Print&dataID=" + id + "&dataTypeID=" + type;
+      var width=800;
+      var height=500;
+      var left = (screen.width - width) / 2;
+      var top = (screen.height - height) / 2;
+      var foo = window.open(url,'form',"menubar=no,status=no,resizable=yes,scrollbars=yes,modal=yes,top="+top+",left="+left+",width="+width+",height="+height+"");
+    } else {
+      alert("Please save data first!");
+    }
+  }
+
+  function entryinterview(id, strID, strType) {
+  window.location="recruitment_process_interview_edit.php?dataID=" + id + "&dataProcessID=" + strID + "&dataTypeID=" + strType ;
+  }
+
+  // fugnsi untuk menampilkan surat yang pernah dibuat
+  function goOpenLetter(id) {
+    candidate = document.formInput.dataCandidateID.value;
+    if (id != "" && candidate != "") {
+      url = "recruitment_process_letter.php?btnShow=Show&dataID=" + id;
+      url += "&dataCandidateID=" + candidate;
+      window.open(url, "letter", "statusbar=0");
+    } else {
+      alert("Please save data first!");
+    }
+  }
+
+  // fungsi untuk minta konfirmasi hapus data
+  function confirmDelete() {
+    return confirm("[var.strWordConfirmDelete]");
+  }
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+
+
+    return true;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataInvitationDate.focus();
+    Calendar.setup({ inputField:"dataInvitationDate", button:"btnInvitationDate" });
+    //Calendar.setup({ inputField:"dataStartDate", button:"btnStartDate" });
+    [var.strCalendarSetup]
+    onResultChange();
+  }//initPage
+  -->
+</script>
+<script type="text/javascript">
+  // fungsi untuk nampilkan tambahan proses
+  function showMore()
+  {
+    intTotal = parseFloat(document.getElementById("dataTotalProcess").value);
+    intShow  = parseFloat(document.getElementById("dataShowProcess").value);
+    if (intShow < intTotal)
+    {
+      intShow++;
+      document.getElementById("detailProcess" + intShow).style.display = (document.all) ? "block" : "table-row";
+      // beberapa inisialisasi
+      document.getElementById("detailSubject" + intShow).value = document.getElementById("detailProcessName" + intShow).value;
+      document.getElementById("detailSubject" + intShow).focus();
+      document.getElementById("dataShowProcess").value = intShow;
+    }
+  }
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td align="left"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong><a href="recruitment_process_list.php">Recruitment Process List</a> | <a href="recruitment_process_report.php">Recruitment Process Report</a>
+          </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;</td>
+        </tr>
+      </table></td>
+  </tr>
+
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox">
+      <form action="recruitment_process_edit.php" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table width="98%" border="0" align="center" cellpadding="1" cellspacing="0">
+          <tr>
+            <td>
+              <input name="dataCandidateID" type="hidden" id="dataCandidateID3" value="[var.strDataCandidateID]">
+              <input name="dataID" type="hidden" id="dataID3" value="[var.strDataID]">
+              <fieldset><legend><b>CANDIDATE DATA</b></legend>
+                <table width=100% border=0 cellpadding=0 cellspacing=0>
+                  <tr valign="top">
+                    <td width="120" nowrap><strong>Candidate Name</strong></td>
+                    <td width="10" nowrap><strong>:</strong></td>
+                    <td width="320" nowrap><strong>[var.strDataCandidateName]</strong></td>
+                    <td nowrap>&nbsp;</td>
+                    <td width="120" nowrap><strong>Application Date</strong></td>
+                    <td width="10" nowrap><strong>:</strong></td>
+                    <td nowrap><strong>[var.strDataApplicationDate]</strong></td>
+                  </tr>
+                  <tr valign="top">
+                    <td><strong>MRF Number</strong></td>
+                    <td><strong>:</strong></td>
+                    <td><strong>[var.strMRFNumber;protect=no;htmlconv=no]</strong></td>
+                    <td nowrap>&nbsp;</td>
+                    <td nowrap><strong>Position</strong></td>
+                    <td nowrap><strong>:</strong></td>
+                    <td nowrap><strong>[var.strDataPosition]</strong></td>
+                  </tr>
+                </table>
+              </fieldset>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <fieldset><legend><b>INVITATION DATA</b></legend>
+                <table width=100% border=0 cellpadding=0 cellspacing=0>
+                  <tr valign="top">
+                    <td width="120" ><strong>Invitation Date</strong></td>
+                    <td width="10" ><strong>:</strong></td>
+                    <td width="320" >[var.strInputInvitationDate]</td>
+                    <td width="10" >&nbsp;</td>
+                    <td width="120" >&nbsp;</td>
+                    <td width="10" >&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap><strong>Invitation Method</strong></td>
+                    <td nowrap><strong>:</strong></td>
+                    <td nowrap>[var.strInputInvitationMethod]</td>
+                    <td nowrap>&nbsp;</td>
+                    <td nowrap>&nbsp;</td>
+                    <td nowrap>&nbsp;</td>
+                    <td nowrap>&nbsp;</td>
+                  </tr>
+                </table>
+              </fieldset>
+            </td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>
+              <fieldset><legend><b>FINAL RESULT</b></legend>
+                <table width=100% border=0 cellpadding=0 cellspacing=0>
+                  <tr valign="top">
+                    <td width="120" ><strong>Result</strong></td>
+                    <td width="10" ><strong>:</strong></td>
+                    <td width="320" >[var.strInputResult]</td>
+                    <td colspan=4>&nbsp;</td>
+                    <!--<td><strong>Approved Salary</strong></td>
+                    <td><strong>:</strong></td>
+                    <td>[var.strInputSalary]</td>-->
+                  </tr>
+                  <tr valign="top">
+                    <td><strong>Note</strong></td>
+                    <td><strong>:</strong></td>
+                    <td>[var.strInputNote]</td>
+                    <td colspan=4>&nbsp;</td>
+                    <!--<td><strong>Date Start</strong></td>
+                    <td><strong>:</strong></td>
+                    <td>[var.strInputStartDate]</td>-->
+                  </tr>
+                </table>
+              </fieldset>
+            </td>
+          </tr>
+          <tr>
+            <td align="left" height=30 valign=bottom>
+              <input name="btnSave" type="submit" id="btnSave" value="Save"> &nbsp;
+              <input name="btnPrintLetter" type="button" id="btnPrintLetter" value="Print Letter" onClick="goPrintDenied()">
+              &nbsp;
+            </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

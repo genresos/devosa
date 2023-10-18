@@ -1,0 +1,263 @@
+<table width="100%" border="0" cellspacing="5" cellpadding="1">
+ <tr>
+   <td colspan="2">
+     <table style="width:100%;align:center;">
+       <tr>
+         <td align="left"><img src="../images/adyawinsa_logo.JPG" height = "50 px"></td>
+          <td align="center">
+           <table>
+             <tr>
+               <td align="center">
+                 <h2>[var.strCompany]</h2>
+               </td>
+             </tr>
+             <tr>
+               <td>
+                 <hr>
+               </td>
+             </tr>
+             <tr>
+               <td align="center">
+                 Periode Salary : [var.strPeriod] <br>
+                 Periode Absence & Attendance : [var.strAttendancePeriod]
+               </td>
+             </tr>
+           </table>
+         </td>
+         <td align="right"><img src="../images/private&confidential.JPG" height = "50 px"></td>
+       </tr>
+       <tr>
+         <td>&nbsp;</td>
+       </tr>
+     </table>
+   </td>
+ </tr>
+  <tr valign="top">
+    <td style="padding-left: 20px;" width="50%">
+      <table width="90%" border="0" cellpadding="1" cellspacing="0">
+        <tr>
+          <td>NIK Corporate</td>
+          <td width="20">:</td>
+          <td nowrap>&nbsp;[var.strEmployeeID2]</td>
+        </tr>
+        <tr>
+          <td>Nama</td>
+          <td width="20">:</td>
+          <td nowrap>&nbsp;[var.strEmployeeName]</td>
+        </tr>
+        <tr>
+          <td>Divisi</td>
+          <td width="20">:</td>
+          <td nowrap>&nbsp;[var.strDivision]</td>
+        </tr>
+        <!-- <tr>
+          <td>Department</td>
+          <td width="20">:</td>
+          <td nowrap>&nbsp;[var.strDepartment]</td>
+        </tr> -->
+        <tr>
+          <td>Posisi</td>
+          <td width="20">:</td>
+          <td nowrap>&nbsp;[var.strFunctional]</td>
+        </tr>
+        <tr>
+          <td>Base</td>
+          <td width="20">:</td>
+          <td nowrap>&nbsp;[var.strBranch]</td>
+        </tr>
+      </table>
+    </td>
+    <td  width="50%">
+      <table width="90%" border="0" cellpadding="1" cellspacing="0">
+        <tr>
+          <td>Join Date</td>
+          <td width="20">:</td>
+          <td nowrap>&nbsp;[var.strJoinDate]</td>
+        </tr>
+        <tr>
+          <td>NPWP</td>
+          <td width="20">:</td>
+          <td nowrap>&nbsp;[var.strNPWP]</td>
+        </tr>
+        <tr>
+          <td>Status Pajak</td>
+          <td width="20">:</td>
+          <td nowrap>&nbsp;[var.strFamilyStatus]</td>
+        </tr>
+        <tr>
+          <td>KTP</td>
+          <td width="20">:</td>
+          <td nowrap>&nbsp;[var.strIDCard]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr><td colspan=2>&nbsp;</td></tr>
+  <tr>
+    <td style="padding-left: 20px;" valign="top">
+      <table width="90%" border="0" cellpadding="1" cellspacing="0">
+
+        <tr>
+          <td colspan=3 style="border-width : thin; border-color: black; border-style : solid; background-color : #d2d2d2;" align="center"><strong>Pendapatan</strong></td>
+        </tr>
+        [var.strIncome]
+        [var.strIncomeBlankSpace]
+        <tr style = 'border-left-width : thin; border-left-color: black; border-left-style : solid; border-right-width : thin; border-right-color: black; border-right-style : solid;border-bottom-width : thin; border-bottom-color: black; border-bottom-style : solid;'>
+          <td colspan=3>&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+    <td valign="top">
+      <table width="90%" border="0" cellpadding="1" cellspacing="0">
+        <tr>
+          <td colspan=3 style="border-width : thin; border-color: black; border-style : solid; background-color : #d2d2d2;" align="center"><strong>Potongan</strong></td>
+        </tr>
+        [var.strDeduction]
+        [var.strDeductionBlankSpace]
+        <tr style = 'border-left-width : thin; border-left-color: black; border-left-style : solid; border-right-width : thin; border-right-color: black; border-right-style : solid;'>
+          <td colspan=3>&nbsp;</td>
+        </tr>
+        <tr style = 'border-left-width : thin; border-left-color: black; border-left-style : solid; border-right-width : thin; border-right-color: black; border-right-style : solid;'>
+          <td colspan=3>&nbsp;</td>
+        </tr>
+        <tr style = 'border-left-width : thin; border-left-color: black; border-left-style : solid; border-right-width : thin; border-right-color: black; border-right-style : solid;'>
+          <td colspan=3>&nbsp;</td>
+        </tr>
+        <tr style = 'border-left-width : thin; border-left-color: black; border-left-style : solid; border-right-width : thin; border-right-color: black; border-right-style : solid;'>
+          <td colspan=3>&nbsp;</td>
+        </tr>
+        <tr style = 'border-left-width : thin; border-left-color: black; border-left-style : solid; border-right-width : thin; border-right-color: black; border-right-style : solid;border-bottom-width : thin; border-bottom-color: black; border-bottom-style : solid;'>
+          <td colspan=3>&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding-left: 20px;" width="50%"><table width="90%" cellpadding="1"><tr style="border-style:solid;border-width:thin;border-color:black;">
+        <td><b>Total</b></td>
+        <td>&nbsp;</td>
+        <td align=right nowrap>&nbsp;<b>[var.strTotalIncome]</b></td>
+    </tr></table></td>
+    <td><table  width="90%" cellpadding="1"><tr style="border-style:solid;border-width:thin;border-color:black;">
+        <td><b>Total</b></td>
+        <td>&nbsp;</td>
+      <td align=right nowrap>&nbsp;<b>[var.strTotalDeduction]</b></td>
+    </tr></table></td>
+  </tr>
+</table>
+<br>
+<br>
+<table style="width:100%;">
+  <tr>
+    <td width="20">&nbsp;</td>
+    <td><h4>Total Allowance</h4></td>
+    <td width="20"><h4>:</h4></td>
+    <td width="20"><h4>Rp</h4></td>
+    <td align="right"><h4>[var.strTotalIncome]</h4></td>
+    <td width="20">&nbsp;</td>
+    <td width="20">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="20">&nbsp;</td>
+    <td><h4>Total Deduction</h4></td>
+    <td width="20"><h4>:</h4></td>
+    <td width="20"><h4>Rp</h4></td>
+    <td align="right"><h4>[var.strTotalDeduction]</h4></td>
+    <td width="20">&nbsp;-</td>
+    <td width="20">&nbsp;</td>
+  </tr>
+  <tr><td width="20">&nbsp;</td><td colspan="4"><hr></td></tr>
+  <tr>
+    <td width="20">&nbsp;</td>
+    <td><h3>Total Take Home Pay</h3></td>
+    <td width="20"><h3>:</h3></td>
+    <td width="20"><h3>Rp</h3></td>
+    <td align="right"><h3>[var.strTotalSalary]</h3></td>
+    <td width="20">&nbsp;</td>
+    <td width="20">&nbsp;</td>
+  </tr>
+  <tr><td width="20">&nbsp;</td><td colspan="4"><hr></td></tr>
+  <tr>
+    <td width="20">&nbsp;</td>
+    <td><h4>Terbilang</h4></td>
+    <td colspan="3"><h4 style="text-transform: capitalize;">: [var.strTotalSalaryTerbilang] Rupiah</h4></td>
+    <td width="20">&nbsp;</td>
+    <td width="20">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="20">&nbsp;</td>
+    <td width="300">
+      <table>
+        <tr>
+          <td colspan="4" style="border-width : thin; border-color: black; border-style : solid; background-color : #d2d2d2;" align="center">
+            <strong>Benefit</strong>
+          </td>
+        </tr>
+        <tr style="border-width : thin; border-color: black; border-style : solid;">
+          <td width="200">JHT 3.7%</td>
+          <td>:</td>
+          <td width="50">Rp</td>
+          <td width="200" align="right">[var.fltJamsostekAllowance]</td>
+        </tr>
+        <tr style="border-width : thin; border-color: black; border-style : solid;">
+          <td width="200">Pensiun</td>
+          <td>:</td>
+          <td width="50">Rp</td>
+          <td width="200" align="right">[var.fltPensionAllowance]</td>
+        </tr>
+        <tr style="border-width : thin; border-color: black; border-style : solid;">
+          <td width="200"><strong>Total</strong></td>
+          <td><strong>:</strong></td>
+          <td><strong>Rp</strong></td>
+          <td width="200" align="right"><strong>[var.fltBenefitAllowance]</strong></td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <table>
+        <tr><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+          <td width="200"></td>
+          <td width="10" style="border-style: solid;border-bottom-width: 1px;border-left-width: 0px;border-right-width: 0px;border-top-width: 0px;border-color:black;">&nbsp;</td>
+          <td width="200" align="center" style="border-style: solid;border-bottom-width: 1px;border-left-width: 0px;border-right-width: 0px;border-top-width: 0px;border-color:black;">[var.strEmployeeName]</td>
+          <td width="10" style="border-style: solid;border-bottom-width: 1px;border-left-width: 0px;border-right-width: 0px;border-top-width: 0px;border-color:black;">&nbsp;</td>
+          <td width="250">&nbsp;</td>
+          <td width="10" style="border-style: solid;border-bottom-width: 1px;border-left-width: 0px;border-right-width: 0px;border-top-width: 0px;border-color:black;">&nbsp;</td>
+          <td width="200" style="border-style: solid;border-bottom-width: 1px;border-left-width: 0px;border-right-width: 0px;border-top-width: 0px;border-color:black;">&nbsp;</td>
+          <td width="10" style="border-style: solid;border-bottom-width: 1px;border-left-width: 0px;border-right-width: 0px;border-top-width: 0px;border-color:black;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="200"></td>
+          <td width="10">&nbsp;</td>
+          <td width="200" align="center">EMPLOYEE</td>
+          <td width="10">&nbsp;</td>
+          <td width="250">&nbsp;</td>
+          <td width="10">&nbsp;</td>
+          <td width="200" align="center">PERSONALIA HEAD</td>
+          <td width="10">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+    <td width="20">&nbsp;</td>
+    <td width="20">&nbsp;</td>
+  </tr>
+  <tr><td width="20">&nbsp;</td><td colspan="4"><hr></td></tr>
+  <tr>
+    <td width="20">&nbsp;</td>
+    <td colspan="4" align="center" style="color:red">Data gaji dalam slip ini bersifat RAHASIA. Setiap karyawan WAJIB menyimpan baik & seaman mungkin slip ini. DILARANG KERAS membuang slip ini dengan sembarangan. Pelanggaran terhadap ketentuan ini akan dikenai sanksi SP.</td>
+    <td width="20">&nbsp;</td>
+    <td width="20">&nbsp;</td>
+  </tr>
+  <tr><td width="20">&nbsp;</td><td colspan="4"><hr></td></tr>
+  <tr>
+    <td width="20">&nbsp;</td>
+    <td colspan="4" align="center">
+      PT ADYAWINSA TELECOMMUNICATION & ELECTRICAL
+      <br>Jalan Pegangsaan Dua, KM.2, No.64, Kelapa Gading, Jakarta Utara 14250
+      <br>Phone : (62)(21) 4603353   Fax. : (62)(21) 4603355
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,153 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+
+    return true;
+  }//validInput
+
+  //edit data tanggal tertentu
+  function editEvent(id, tanggal) 
+  {
+    var bln = document.formInput.dataMonth.value;
+    var thn = document.formInput.dataYear.value;
+    if (bln < 10) bln = "0" + bln;
+    if (tanggal < 10) tanggal = "0" + tanggal ;
+    document.formInput.dataDate.value = thn + "-" + bln + "-" + tanggal;
+    if (id != 0)
+    {
+      document.formInput.dataID.value = id;
+      document.formInput.dataNote.value = document.getElementById("dataNote"+id).value;
+      document.formInput.dataCategory.value = document.getElementById("dataCategory"+id).value;
+      document.formInput.dataHoliday.value = document.getElementById("dataStatus"+id).value;
+      document.formInput.dataLeave.value = document.getElementById("dataLeave"+id).value;
+    }
+    else
+    {
+      document.formInput.dataID.value = "";
+      document.formInput.dataNote.value = "";
+      document.formInput.dataCategory.selectedIndex = 0;
+    }
+    document.formInput.dataNote.focus();
+  } //editEvent
+
+  // fungsi untuk menghapus data
+  function deleteEvent(id, tanggal) {
+    if (tanggal != "" && tanggal != "undefined") {
+      var bln = document.formInput.dataMonth.value;
+      var thn = document.formInput.dataYear.value;
+
+      if (confirm("[var.strConfirmDelete]")) {
+        location.href = "working_calendar.php?btnDelete=Delete&dataMonth=" + bln + "&dataYear=" + thn + "&dataDay=" + tanggal + "&dataID=" + id;
+      }
+    }
+  }//deleteEvent
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td><img src="[var.pageIcon]" border="0" width="30"/></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="0" cellpadding="1" cellspacing="0">
+        <tr>
+          <td width="30"></td>
+          <td nowrap class="pageHeaderTitleText"><form action="" method="post" name="formFilter" id="formFilter">
+              <table width="100%" border="0" cellspacing="0" cellpadding="1">
+                <tr>
+                  <td nowrap><strong>[var.strMonthNavigation] | <a href="holiday_list.php">[var.strWordsEventList]</a></strong></td>
+                  <td align="right" nowrap>[var.strWordsSelectMonth] : [var.strMonthList] [var.strYearList]
+                    <input name="btnShow" type="submit" id="btnShow2" value="[var.strWordsShow]">
+                  </td>
+                </tr>
+              </table>
+            </form></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+          <tr valign="top">
+            <td width="85%">[var.strCalendar]</td>
+            <td width="15%" align="right">[var.strLegend]</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="working_calendar.php" method="post" name="formInput" id="formInput">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="15%"><strong>&nbsp;[var.strWordsDate]:</strong></td>
+            <td> 
+              <input name="dataDate" type="text" id="dataDate" value="[var.strNow]" size="15" maxlength="10">
+              <input name="btnDate" type="button" id="btnDate" value="..">
+            </td>
+          </tr>
+          <tr>
+            <td><strong>&nbsp;[var.strWordsEvent]:</strong></td>
+            <td><strong>
+              <input name="dataNote" type="text" id="dataNote" size="60" maxlength="30">
+              </strong></td>
+          </tr>
+          <tr>
+            <td>
+              <strong>&nbsp;[var.strWordsCategory]:
+            </td> 
+            <td nowrap>
+              [var.strHolidayType]<strong>
+              &nbsp;&nbsp;[var.strWordsHoliday]:
+                <select name="dataHoliday" id="select">
+                  <option value="t" selected>[var.strWordsYes]</option>
+                  <option value="f">[var.strWordsNo]</option>
+                </select>
+              &nbsp;&nbsp;[var.strWordsLeave]:
+                <select name="dataLeave" id="select3">
+                  <option value="t">[var.strWordsYes]</option>
+                  <option value="f" selected>[var.strWordsNo]</option>
+                </select>
+                </strong> 
+            </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><strong>
+              <input name="btnSave" type="submit" id="btnSave2" value="[var.strWordsSave]">
+              <input name="dataMonth" type="hidden" id="dataMonth" value="[var.strDataMonth]">
+              <input name="dataYear" type="hidden" id="dataYear" value="[var.strDataYear]">
+              <input name="dataID" type="hidden" id="dataID">
+              </strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

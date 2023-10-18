@@ -1,0 +1,655 @@
+<script type="text/javascript">
+  <!--
+  function resetInputManagement() {
+		showInput("inputSection",false);
+		showInput("inputSubSection",false);
+		showInput("inputDepartment", false);
+		showInput("inputDivision",false);
+		showInput("inputManagement",true);
+
+    document.formInputManagement.dataCode.value = "";
+    document.formInputManagement.dataOldCode.value = "";
+    document.formInputManagement.dataName.value = "";
+    document.formInputManagement.dataID.value = "";
+    document.formInputManagement.dataCode.focus();
+  }//resetInputManagement
+
+  function resetInputDivision() {
+    document.formInputDivision.dataCode.value = "";
+    document.formInputDivision.dataOldCode.value = "";
+    document.formInputDivision.dataName.value = "";
+    document.formInputDivision.dataID.value = "";
+    document.formInputDivision.dataCode.focus();
+  }//resetInputDivision
+
+  function resetInput() {
+    document.formInput.dataCode.value = "";
+    document.formInput.dataOldCode.value = "";
+    document.formInput.dataName.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataCode.focus();
+
+  }//resetInput
+  function resetInputSection() {
+    document.formInputSection.dataCode.value = "";
+    document.formInputSection.dataOldCode.value = "";
+    document.formInputSection.dataName.value = "";
+    document.formInputSection.dataID.value = "";
+    document.formInputSection.dataCode.focus();
+  }//resetInputSection
+
+  function resetInputSubSection() {
+    document.formInputSubSection.dataCode.value = "";
+    document.formInputSubSection.dataOldCode.value = "";
+    document.formInputSubSection.dataName.value = "";
+    document.formInputSubSection.dataID.value = "";
+    document.formInputSubSection.dataCode.focus();
+  }//resetInputSubSection
+
+  // fungsi untuk menyiapkan data diedit (data management)
+  function editDataManagement(index) {
+    if (index != "") {
+      showInput("inputSection",false);
+      showInput("inputSubSection",false);
+      showInput("inputDepartment", false);
+      showInput("inputDivision",false);
+      showInput("inputManagement",true);
+
+      document.formInputManagement.dataCode.value = eval("document.formData.detailManagementCode" + index + ".value");
+      document.formInputManagement.dataOldCode.value = eval("document.formData.detailManagementCode" + index + ".value");
+      document.formInputManagement.dataName.value = eval("document.formData.detailManagementName" + index + ".value");
+      document.formInputManagement.dataID.value = eval("document.formData.chkManagementID" + index + ".value");
+      document.formInputManagement.dataCode.focus();
+      document.formInputManagement.dataCode.select();
+    }
+  }//editData
+  // fungsi untuk menyiapkan data diedit (data department)
+  function editDataDivision(index) {
+    if (index != "") {
+      showInput("inputManagement",false);
+      showInput("inputDivision",true);
+      showInput("inputDepartment", false);
+      showInput("inputSection",false);
+      showInput("inputSubSection",false);
+
+      var manCode = eval("document.formData.detailManagementCode" + index + ".value");
+      var manName = eval("document.formData.detailManagementName" + index + ".value");
+
+      document.formInputDivision.dataManCode.value = manCode;
+      var objD = document.getElementById("divisionManagement");
+      objD.innerHTML = manCode + " - " + manName;
+
+      document.formInputDivision.dataCode.value = eval("document.formData.detailDivisionCode" + index + ".value");
+      document.formInputDivision.dataOldCode.value = eval("document.formData.detailDivisionCode" + index + ".value");
+      document.formInputDivision.dataName.value = eval("document.formData.detailDivisionName" + index + ".value");
+      document.formInputDivision.dataID.value = eval("document.formData.chkDivisionID" + index + ".value");
+      document.formInputDivision.dataCode.focus();
+      document.formInputDivision.dataCode.select();
+    }
+  }//editData
+
+  // fungsi untuk menyiapkan data diedit (data department)
+  function editData(index) {
+    if (index != "") {
+      showInput("inputManagement", false);
+      showInput("inputDivision", false);
+      showInput("inputSection", false);
+      showInput("inputSubSection", false);
+      showInput("inputDepartment", true);
+
+      var manCode = eval("document.formData.detailManagementCode" + index + ".value");
+      var manName = eval("document.formData.detailManagementName" + index + ".value");
+      var divCode = eval("document.formData.detailDivisionCode" + index + ".value");
+      var divName = eval("document.formData.detailDivisionName" + index + ".value");
+
+      document.formInput.dataManCode.value = manCode;
+      var objD = document.getElementById("departmentManagement");
+      objD.innerHTML = manCode + " - " + manName;
+      document.formInput.dataDivCode.value = divCode;
+      var objD = document.getElementById("departmentDivision");
+      objD.innerHTML = divCode + " - " + divName;
+
+      document.formInput.dataCode.value = eval("document.formData.detailCode" + index + ".value");
+      document.formInput.dataOldCode.value = eval("document.formData.detailCode" + index + ".value");
+      document.formInput.dataName.value = eval("document.formData.detailName" + index + ".value");
+      document.formInput.dataID.value = eval("document.formData.chkID" + index + ".value");
+      document.formInput.dataCode.focus();
+      document.formInput.dataCode.select();
+    }
+  }//editData
+
+  // fungsi untuk menyiapkan data diedit (data section)
+  function editDataSection(index) {
+    if (index != "") {
+      showInput("inputManagement", false);
+      showInput("inputDivision",false);
+      showInput("inputDepartment", false);
+      showInput("inputSection",true);
+      showInput("inputSubSection",false);
+
+      var manCode = eval("document.formData.detailManagementCode" + index + ".value");
+      var manName = eval("document.formData.detailManagementName" + index + ".value");
+      var divCode = eval("document.formData.detailDivisionCode" + index + ".value");
+      var divName = eval("document.formData.detailDivisionName" + index + ".value");
+      var deptCode = eval("document.formData.detailCode" + index + ".value");
+      var deptName = eval("document.formData.detailName" + index + ".value");
+      document.formInputSection.dataManCode.value = manCode;
+      var objD = document.getElementById("sectionManagement");
+      objD.innerHTML = manCode + " - " + manName;
+      document.formInputSection.dataDivCode.value = divCode;
+      var objD = document.getElementById("sectionDivision");
+      objD.innerHTML = divCode + " - " + divName;
+      document.formInputSection.dataDeptCode.value = deptCode;
+      var obj = document.getElementById("sectionDepartment");
+      obj.innerHTML = deptCode + " - " + deptName;
+
+      document.formInputSection.dataCode.value = eval("document.formData.detailSectionCode" + index + ".value");
+      document.formInputSection.dataOldCode.value = eval("document.formData.detailSectionCode" + index + ".value");
+      document.formInputSection.dataName.value = eval("document.formData.detailSectionName" + index + ".value");
+      document.formInputSection.dataID.value = eval("document.formData.chkSectionID" + index + ".value");
+      document.formInputSection.dataCode.focus();
+      document.formInputSection.dataCode.select();
+    }
+  }//editDataSection
+
+  // fungsi untuk menyiapkan data diedit (data subsection)
+  function editDataSubSection(index) {
+    if (index != "") {
+      showInput("inputManagement",false);
+      showInput("inputDivision",false);
+      showInput("inputDepartment", false);
+      showInput("inputSection",false);
+      showInput("inputSubSection",true);
+
+      var manCode = eval("document.formData.detailManagementCode" + index + ".value");
+      var manName = eval("document.formData.detailManagementName" + index + ".value");
+      var divCode = eval("document.formData.detailDivisionCode" + index + ".value");
+      var divName = eval("document.formData.detailDivisionName" + index + ".value");
+      var deptCode = eval("document.formData.detailCode" + index + ".value");
+      var deptName = eval("document.formData.detailName" + index + ".value");
+      var sectCode = eval("document.formData.detailSectionCode" + index + ".value");
+      var sectName = eval("document.formData.detailSectionName" + index + ".value");
+  
+      document.formInputSubSection.dataManCode.value = manCode;
+      var objD = document.getElementById("subSectionManagement");
+      objD.innerHTML = manCode + " - " + manName;
+      document.formInputSubSection.dataDivCode.value = divCode;
+      var objD = document.getElementById("subSectionDivision");
+      objD.innerHTML = divCode + " - " + divName;
+
+      document.formInputSubSection.dataDeptCode.value = deptCode;
+      var obj = document.getElementById("subSectionDepartment");
+      obj.innerHTML = deptCode + " - " + deptName;
+
+      document.formInputSubSection.dataSectCode.value = sectCode;
+      var obj1 = document.getElementById("subSection");
+      obj1.innerHTML = sectCode + " - " + sectName;
+
+      document.formInputSubSection.dataCode.value = eval("document.formData.detailSubSectionCode" + index + ".value");
+      document.formInputSubSection.dataOldCode.value = eval("document.formData.detailSubSectionCode" + index + ".value");
+      document.formInputSubSection.dataName.value = eval("document.formData.detailSubSectionName" + index + ".value");
+      document.formInputSubSection.dataID.value = eval("document.formData.chkSubSectionID" + index + ".value");
+      document.formInputSubSection.dataCode.focus();
+      document.formInputSubSection.dataCode.select();
+    }
+  }//editDataSubSection
+  
+  // fungsi untuk menambah department baru
+  function addDataDivision(index) {
+    if (index != "") {
+      showInput("inputManagement",false);
+      showInput("inputDivision",true);
+      showInput("inputSubSection",false);
+      showInput("inputSection",false);
+      showInput("inputDepartment", false);
+
+      var manCode = eval("document.formData.detailManagementCode" + index + ".value");
+      var manName = eval("document.formData.detailManagementName" + index + ".value");
+
+      document.formInputDivision.dataManCode.value = manCode;
+      var objD = document.getElementById("divisionManagement");
+      objD.innerHTML = manCode + " - " + manName;
+      resetInputDivision();
+    }
+  }//addDataDivision  // fungsi untuk menambah division baru
+
+  function addData(index) {
+    if (index != "") {
+      showInput("inputManagement",false);
+      showInput("inputDivision",false);
+      showInput("inputSubSection",false);
+      showInput("inputSection",false);
+      showInput("inputDepartment", true);
+
+      var manCode = eval("document.formData.detailManagementCode" + index + ".value");
+      var manName = eval("document.formData.detailManagementName" + index + ".value");
+      var divCode = eval("document.formData.detailDivisionCode" + index + ".value");
+      var divName = eval("document.formData.detailDivisionName" + index + ".value");
+
+      document.formInput.dataManCode.value = manCode;
+      var objD = document.getElementById("departmentManagement");
+      objD.innerHTML = manCode + " - " + manName;
+      document.formInput.dataDivCode.value = divCode;
+      var objD = document.getElementById("departmentDivision");
+      objD.innerHTML = divCode + " - " + divName;
+
+      resetInput();
+    }
+  }//addData
+
+  // fungsi untuk menambah section baru
+  function addDataSection(index) {
+    if (index != "") {
+      showInput("inputManagement",false);
+      showInput("inputDivision",false);
+      showInput("inputDepartment", false);
+      showInput("inputSubSection",false);
+      showInput("inputSection",true);
+
+      var manCode = eval("document.formData.detailManagementCode" + index + ".value");
+      var manName = eval("document.formData.detailManagementName" + index + ".value");
+      var divCode = eval("document.formData.detailDivisionCode" + index + ".value");
+      var divName = eval("document.formData.detailDivisionName" + index + ".value");
+      var deptCode = eval("document.formData.detailCode" + index + ".value");
+      var deptName = eval("document.formData.detailName" + index + ".value");
+
+      document.formInputSection.dataManCode.value = manCode;
+      var objD = document.getElementById("sectionManagement");
+      objD.innerHTML = manCode + " - " + manName;
+      document.formInputSection.dataDivCode.value = divCode;
+      var objD = document.getElementById("sectionDivision");
+      objD.innerHTML = divCode + " - " + divName;
+      document.formInputSection.dataDeptCode.value = deptCode;
+      var obj = document.getElementById("sectionDepartment");
+      obj.innerHTML = deptCode + " - " + deptName;
+
+      resetInputSection();
+    }
+  }//addDataSection
+
+  // fungsi untuk menambah sub section baru
+  function addDataSubSection(index) {
+    if (index != "") {
+      showInput("inputManagement",false);
+      showInput("inputDivision",false);
+      showInput("inputDepartment", false);
+      showInput("inputSection",false);
+      showInput("inputSubSection",true);
+
+      var manCode = eval("document.formData.detailManagementCode" + index + ".value");
+      var manName = eval("document.formData.detailManagementName" + index + ".value");
+      var divCode = eval("document.formData.detailDivisionCode" + index + ".value");
+      var divName = eval("document.formData.detailDivisionName" + index + ".value");
+      var deptCode = eval("document.formData.detailCode" + index + ".value");
+      var deptName = eval("document.formData.detailName" + index + ".value");
+      var sectCode = eval("document.formData.detailSectionCode" + index + ".value");
+      var sectName = eval("document.formData.detailSectionName" + index + ".value");
+
+      document.formInputSubSection.dataManCode.value = manCode;
+      var objD = document.getElementById("subSectionManagement");
+      objD.innerHTML = manCode + " - " + manName;
+      document.formInputSubSection.dataDivCode.value = divCode;
+      var objD = document.getElementById("subSectionDivision");
+      objD.innerHTML = divCode + " - " + divName;
+      document.formInputSubSection.dataDeptCode.value = deptCode;
+      document.formInputSubSection.dataSectCode.value = sectCode;
+      var obj = document.getElementById("subSectionDepartment");
+      obj.innerHTML = deptCode + " - " + deptName;
+      var obj1 = document.getElementById("subSection");
+      obj1.innerHTML = sectCode + " - " + sectName;
+
+      resetInputSubSection();
+    }
+  }//addDataSection
+
+  // fungsi untuk menampilkan input data
+  // kode = id dari data, status : true/false
+  function showInput(kode,status) {
+    if (kode != "") {
+      if (status) {
+        document.getElementById(kode).style.display = document.all ? "block" : "table-row";
+      } else {
+        document.getElementById(kode).style.display = "none";
+      }
+    }
+  }
+  //fungsi untuk memeriksa apakah input valid
+  function validInputManagement() {
+
+    return true;
+  }//validInput
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+
+    return true;
+  }//validInput
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+	//membuka window baru untuk format print
+	function printData() {
+		url = "data_department.php?btnPrint=Print";
+		window.open(url);
+	}//printData
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    //document.formInputDivision.dataCode.focus();
+  }//initPage
+	-->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30"/></td>
+          <td nowrap class="pageHeaderTitleText">[var.strWordsDepartmentData]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30">&nbsp;</td>
+          <td nowrap><strong>
+            [var.strWordsInputData] | 
+            <a href="data_department_tree.php">[var.strWordsDepartment]</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop">[var.strWordsINPUTDATA]</td>
+  </tr>
+  <tr id="inputManagement">
+    <td class="inputBox"> <form action="" method="post" name="formInputManagement" id="formInputManagement" onSubmit="return validInputManagement();">
+        <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td height="21">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="15%" nowrap>&nbsp;[var.strWordsManagementCode]</td>
+            <td width="5%">:</td>
+            <td width="80%"><input name="dataCode" type="text" id="dataCode" size="50" maxlength="20">
+              <input name="dataOldCode" type="hidden" id="dataID4"></td>
+          </tr>
+          <tr>
+            <td nowrap> &nbsp;[var.strWordsName]</td>
+            <td>:</td>
+            <td><input name="dataName" type="text" id="dataCode3" size="50" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]">
+              <input name="dataID" type="hidden" id="dataID"> <input name="btnNew" type="button" id="btnNew" value="[var.strWordsClearForm]" onClick="resetInputManagement();">
+              <input name="dataType" type="hidden" id="dataType" value="management"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr> 
+  <tr id="inputDivision" style="display:none">
+    <td class="inputBox"> <form action="" method="post" name="formInputDivision" id="formInputDivision" onSubmit="return validInputDivision();">
+        <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td height="21">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsManagementCode]</td>
+            <td>:</td>
+            <td><strong id="divisionManagement"></strong> <input name="dataManCode" type="hidden" id="dataManCode"></td>
+          </tr>
+          <tr>
+            <td width="15%" nowrap>&nbsp;[var.strWordsDivisionCode]</td>
+            <td width="5%">:</td>
+            <td width="80%"><input name="dataCode" type="text" id="dataCode" size="50" maxlength="20">
+              <input name="dataOldCode" type="hidden" id="dataID4"></td>
+          </tr>
+          <tr>
+            <td nowrap> &nbsp;[var.strWordsName]</td>
+            <td>:</td>
+            <td><input name="dataName" type="text" id="dataCode3" size="50" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]">
+              <input name="dataID" type="hidden" id="dataID"> <input name="btnNew" type="button" id="btnNew" value="[var.strWordsClearForm]" onClick="resetInputDivision();">
+              <input name="dataType" type="hidden" id="dataType" value="division"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr id="inputDepartment" style="display:none">
+    <td class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsManagementCode]</td>
+            <td>:</td>
+            <td><strong id="departmentManagement"></strong> <input name="dataManCode" type="hidden" id="dataManCode"></td>
+          </tr>          
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsDivisionCode]</td>
+            <td>:</td>
+            <td><strong id="departmentDivision"></strong> <input name="dataDivCode" type="hidden" id="dataDivCode"></td>
+          </tr>
+          <tr>
+            <td width="15%" nowrap>&nbsp;[var.strWordsDepartmentCode]</td>
+            <td width="5%">:</td>
+            <td width="80%"><input name="dataCode" type="text" id="dataCode" size="50" maxlength="20">
+              <input name="dataOldCode" type="hidden" id="dataOldCode"></td>
+          </tr>
+          <tr>
+            <td nowrap> &nbsp;[var.strWordsName]</td>
+            <td>:</td>
+            <td><input name="dataName" type="text" id="dataCode3" size="50" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><input name="btnSave" type="submit" id="btnSave" value="Save">
+              <input name="dataID" type="hidden" id="dataID"> <input name="btnNew" type="button" id="btnNew" value="Clear Form" onClick="resetInputDivision();">
+              <input name="dataType" type="hidden" id="dataType" value="department"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr id="inputSection" style="display:none">
+    <td class="inputBox"><form action="" method="post" name="formInputSection" id="formInputSection" onSubmit="return validInput();">
+        <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsManagementCode]</td>
+            <td>:</td>
+            <td><strong id="sectionManagement"></strong> <input name="dataManCode" type="hidden" id="dataManCode"></td>
+          </tr>          
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsDivisionCode]</td>
+            <td>:</td>
+            <td><strong id="sectionDivision"></strong> <input name="dataDivCode" type="hidden" id="dataDivCode"></td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsDepartmentCode]</td>
+            <td>:</td>
+            <td><strong id="sectionDepartment"></strong> <input name="dataDeptCode" type="hidden" id="dataDeptCode"></td>
+          </tr>
+          <tr>
+            <td width="15%" nowrap>&nbsp;[var.strWordsSectionCode]</td>
+            <td width="5%">:</td>
+            <td width="80%"><input name="dataCode" type="text" id="dataCode" size="50" maxlength="20">
+              <input name="dataOldCode" type="hidden" id="dataOldCode"></td>
+          </tr>
+          <tr>
+            <td nowrap> &nbsp;[var.strWordsName]</td>
+            <td>:</td>
+            <td><input name="dataName" type="text" id="dataName" size="50" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><input name="btnSave" type="submit" id="btnSave" value="Save">
+              <input name="dataID" type="hidden" id="dataID"> <input name="btnNew" type="button" id="btnNew" value="Clear Form" onClick="resetInputDivision();">
+              <input name="dataType" type="hidden" id="dataType" value="section"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr id="inputSubSection" style="display:none">
+    <td class="inputBox"><form action="" method="post" name="formInputSubSection" id="formInputSubSection" onSubmit="return validInput();">
+        <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsManagementCode]</td>
+            <td>:</td>
+            <td><strong id="subSectionManagement"></strong> <input name="dataManCode" type="hidden" id="dataManCode"></td>
+          </tr>          
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsDivisionCode]</td>
+            <td>:</td>
+            <td><strong id="subSectionDivision"></strong> <input name="dataDivCode" type="hidden" id="dataDivCode"></td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsDepartmentCode]</td>
+            <td>:</td>
+            <td><strong id="subSectionDepartment"></strong> <input name="dataDeptCode" type="hidden" id="dataDeptCode"></td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsSectionCode]</td>
+            <td>:</td>
+            <td><strong id="subSection"></strong> <input name="dataSectCode" type="hidden" id="dataSectCode"></td>
+          </tr>
+          <tr>
+            <td width="20%" nowrap>&nbsp;[var.strWordsSubSectionCode]</td>
+            <td width="5%">:</td>
+            <td width="75%"> <input name="dataCode" type="text" id="dataCode4" size="50" maxlength="20">
+              <input name="dataOldCode" type="hidden" id="dataOldCode3"> </td>
+          </tr>
+          <tr>
+            <td nowrap> &nbsp;[var.strWordsName]</td>
+            <td>:</td>
+            <td><input name="dataName" type="text" id="dataName" size="50" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><input name="btnSave" type="submit" id="btnSave" value="Save">
+              <input name="dataID" type="hidden" id="dataID3"> <input name="btnNew" type="button" id="btnNew" value="Clear Form" onClick="resetInputDivision();">
+              <input name="dataType" type="hidden" id="dataType3" value="subsection"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr style="text-transform:uppercase;font-weight:bold">
+    <td>[var.strWordsLISTOFDIVISIONDEPARTMENTANDSECTION]</td>
+  </tr>
+  <tr>
+    <td><form action="data_department.php" method="post" name="formData" id="formData">
+        <table width="100%" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          <tr >
+            <th colspan="5" > [var.strWordsMANAGEMENT]</th>
+            <th colspan="5" > [var.strWordsDIVISION]</th>
+            <th colspan="5" >[var.strWordsDEPARTMENT]</th>
+            <th colspan="5" > [var.strWordsSECTION]</th>
+            <th colspan="4" >[var.strWordsSUBSECTION]</th>
+          </tr>
+          <tr class="tableHeader">
+            <th width="10">&nbsp;</th>
+            <th nowrap>[var.strWordsCODE]</th>
+            <th nowrap>[var.strWordsNAME]</th>
+            <th width="25">&nbsp;</th>
+            <th width="25">&nbsp;</th>
+            <th width="10">&nbsp;</th>
+            <th nowrap>[var.strWordsCODE]</th>
+            <th nowrap>[var.strWordsNAME]</th>
+            <th width="25">&nbsp;</th>
+            <th width="25">&nbsp;</th>
+            <th width="10">&nbsp;</th>
+            <th>[var.strWordsCODE]</th>
+            <th>[var.strWordsNAME]</th>
+            <th width="25">&nbsp;</th>
+            <th width="25">&nbsp;</th>
+            <th width="10">&nbsp;</th>
+            <th>[var.strWordsCODE]</th>
+            <th>[var.strWordsNAME]</th>
+            <th width="25">&nbsp;</th>
+            <th width="25">&nbsp;</th>
+            <th width="10">&nbsp;</th>
+            <th>[var.strWordsCODE]</th>
+            <th>[var.strWordsNAME]</th>
+            <th width="25">&nbsp;</th>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td>&nbsp;</td>
+							<td colspan="29">[var.strButtonListing]</td>
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

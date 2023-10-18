@@ -1,0 +1,918 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<script src="department_data.php"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<link href="../includes/datagrid/css/aqua.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/jquery-ui/jquery.min.js"></script>
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+
+  // memeriksa apakah opsi employee status dipilih atau gak
+  function checkStatus() {
+    var pilih = document.formInput.dataIsStatus.checked;
+    var obj = document.getElementById("inputStatus");
+
+    document.formInput.dataStatusNew.disabled = !pilih;
+    document.formInput.dataStatusDateFrom.disabled = !pilih;
+    document.formInput.dataStatusDateThru.disabled = !pilih;
+
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  } // checkStatus
+
+  // memeriksa apakah opsi employee NIK dipilih atau gak
+  function checkNIK() {
+    var pilih = document.formInput.dataIsNIK.checked;
+    var obj = document.getElementById("inputNIK");
+
+    document.formInput.dataNIKOld.disabled = !pilih;
+    document.formInput.dataNIKNew.disabled = !pilih;
+
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  } // checkNIK
+
+  function checkBranch() {
+    var pilih = document.formInput.dataIsBranch.checked;
+    var obj = document.getElementById("inputBranch");
+
+    document.formInput.dataBranchContractOld.disabled = !pilih;
+    document.formInput.dataBranchContractNew.disabled = !pilih;
+    document.formInput.dataBranchPenugasanOld.disabled = !pilih;
+    document.formInput.dataBranchPenugasanNew.disabled = !pilih;
+    document.formInput.dataBranchNewDate.disabled = !pilih;
+
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  } // checkNIK
+
+  function checkCostCenter() {
+    var pilih = document.formInput.dataIsCostCenter.checked;
+    var obj = document.getElementById("inputCostCenter");
+
+    document.formInput.dataCostCenterOld.disabled = !pilih;
+    document.formInput.dataCostCenterNew.disabled = !pilih;
+    document.formInput.dataCostCenterNewDate.disabled = !pilih;
+
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  } // checkNIK
+
+  function checkSalary() {
+    var pilih = document.formInput.dataIsSalary.checked;
+    var obj = document.getElementById("inputSalary");
+
+    //document.formInput.dataBasicSalaryNew.disabled = !pilih;
+    //document.formInput.dataBasicSalaryOld.disabled = !pilih;
+    document.formInput.dataSalaryNewDate.disabled = !pilih;
+    if (typeof document.formInput.hNumShowDetail != 'undefined' && document.formInput.hNumShowDetail.value > 0){
+	    for (var i = 1;i < document.formInput.hNumShowDetail.value;i++){
+	    	document.getElementById('amount_new'+ i).disabled = !pilih;
+	    	document.getElementById('id_allowance_type'+ i).disabled = !pilih;
+	    	document.getElementById('id'+ i).disabled = !pilih;
+	    	document.getElementById('allowance_type_code'+ i).disabled = !pilih;
+	    }
+	  }
+	  if (typeof document.formInput.dataSalarySet != 'undefined'){
+    	document.formInput.dataSalarySet.disabled = !pilih;
+    }
+
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  }
+
+  // memeriksa apakah opsi position dipilih atau gak
+  function checkPosition() {
+    var pilih = document.formInput.dataIsPosition.checked;
+    var obj = document.getElementById("inputPosition");
+
+    document.formInput.dataPositionOld.disabled = !pilih;
+    document.formInput.dataPositionNew.disabled = !pilih;
+    document.formInput.dataGradeOld.disabled = !pilih;
+    document.formInput.dataGradeNew.disabled = !pilih;
+    document.formInput.dataFunctionalOld.disabled = !pilih;
+    document.formInput.dataFunctionalNew.disabled = !pilih;
+    document.formInput.dataPositionNewDate.disabled = !pilih;
+
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  } // checkPosition
+
+  // memeriksa apakah opsi department dipilih atau gak
+  function checkOrganization() {
+    var pilih = document.formInput.dataIsDepartment.checked;
+    var obj = document.getElementById("inputDepartment");
+
+    document.formInput.dataManagementOld.disabled = !pilih;
+    document.formInput.dataManagementNew.disabled = !pilih;
+    document.formInput.dataDivisionOld.disabled = !pilih;
+    document.formInput.dataDivisionNew.disabled = !pilih;
+    document.formInput.dataDepartmentOld.disabled = !pilih;
+    document.formInput.dataDepartmentNew.disabled = !pilih;
+    document.formInput.dataSectionOld.disabled = !pilih;
+    document.formInput.dataSectionNew.disabled = !pilih;
+    document.formInput.dataSubSectionOld.disabled = !pilih;
+    document.formInput.dataSubSectionNew.disabled = !pilih;
+    document.formInput.dataDepartmentNewDate.disabled = !pilih;
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+    if (pilih){
+    	document.formInput.dataIsSalary.checked = pilih;
+    	checkSalary();
+    }
+  } // checkOrganization
+
+  // fungsi memeriksa saat division dipilih, untuk menentukan managementnya
+  function checkDivision() {
+    var div = document.formInput.dataDivisionNew.value;
+
+    if (div != "") {
+
+      if (arrDivision[div] != "undefined") {
+        document.formInput.dataManagementNew.value = arrDivision[div];
+        document.formInput.dataDepartmentNew.value = "";
+        document.formInput.dataSectionNew.value = "";
+        document.formInput.dataSubSectionNew.value = "";
+      }
+    }
+  } // checkDivision
+
+
+  // fungsi memeriksa saat department dipilih, untuk menentukan divisinya
+  function checkDepartment() {
+    var dept = document.formInput.dataDepartmentNew.value;
+    if (dept != "") {
+      if (arrDepartment[dept][0] != "undefined") document.formInput.dataManagementNew.value = arrDepartment[dept][0];
+      if (arrDepartment[dept][1] != "undefined") document.formInput.dataDivisionNew.value = arrDepartment[dept][1];
+      document.formInput.dataSectionNew.value = "";
+      document.formInput.dataSubSectionNew.value = "";
+    }
+  } // checkDepartment
+
+  // fungsi memeriksa saat section dipilih, untuk menentukan divisinya
+  function checkSection() {
+    var sect = document.formInput.dataSectionNew.value;
+
+    if (sect != "") {
+
+      if (arrSection[sect][0] != "undefined") document.formInput.dataManagementNew.value = arrSection[sect][0];
+      if (arrSection[sect][1] != "undefined") document.formInput.dataDivisionNew.value = arrSection[sect][1];
+      if (arrSection[sect][2] != "undefined") document.formInput.dataDepartmentNew.value = arrSection[sect][2];
+      document.formInput.dataSubSectionNew.value = "";
+    }
+  } // checkSection
+
+  function checkSubSection() {
+    var sect = document.formInput.dataSubSectionNew.value;
+    if (sect != "") {
+      if (arrSubSection[sect][0] != "undefined") document.formInput.dataManagementNew.value = arrSubSection[sect][0];
+      if (arrSubSection[sect][1] != "undefined") document.formInput.dataDivisionNew.value = arrSubSection[sect][1];
+      if (arrSubSection[sect][2] != "undefined") document.formInput.dataDepartmentNew.value = arrSubSection[sect][2];
+      if (arrSubSection[sect][3] != "undefined") document.formInput.dataSectionNew.value = arrSubSection[sect][3];
+
+    }
+  } // checkSubSection
+
+
+  function clearForm() {
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataLetterCode.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDateFrom.focus();
+  } //clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDate.focus();
+    Calendar.setup({
+      inputField: "dataDate",
+      button: "btnDate"
+    });
+    Calendar.setup({
+      inputField: "dataStatusDateFrom",
+      button: "btnStatusDateFrom"
+    });
+    Calendar.setup({
+      inputField: "dataStatusDateThru",
+      button: "btnStatusDateThru"
+    });
+    Calendar.setup({
+      inputField: "dataDepartmentNewDate",
+      button: "btnDepartmentNewDate"
+    });
+    Calendar.setup({
+      inputField: "dataPositionNewDate",
+      button: "btnPositionNewDate"
+    });
+    Calendar.setup({ 
+    	inputField:"dataSalaryNewDate", 
+    	button:"btnSalaryNewDate" 
+    });
+    Calendar.setup({
+      inputField: "dataBranchNewDate",
+      button: "btnBranchNewDate"
+    });
+    Calendar.setup({
+      inputField: "dataCostCenterNewDate",
+      button: "btnCostCenterNewDate"
+    });
+    init();
+    onCodeBlur();
+
+    checkStatus();
+    checkOrganization();
+    checkPosition();
+    checkNIK();
+    checkCostCenter();
+    checkBranch();
+    checkSalary();
+
+
+
+  } //initPage
+  function calculateTotal($){
+  	var totalAllowance = 0;
+  	$('.allowance_item').each(function(){
+				totalAllowance = totalAllowance + ($(this).val()*1);
+		});	
+		return totalAllowance;
+  }
+  function calculateTotal2($){
+  	var totalAllowance = 0;
+  	$('.allowance_item2').each(function(){
+				totalAllowance = totalAllowance + ($(this).val()*1);
+		});
+		//console.log(totalAllowance);
+		return totalAllowance;
+  }
+  jQuery(function ($) {
+  	var strEmployeeID = $('#strIDEmployee').val();
+    $('#btnSave2').on('click', function(e){
+        if ($('input[name="dataIsStatus"]:checked').length > 0){
+            if ($('#dataStatusDateFrom').val() == '' || $('#dataStatusDateThru').val() == ''){
+                e.preventDefault();
+                alert('Mohon mengisi date from/until terlebih dulu...!!?');
+                if ($('#dataStatusDateFrom').val() == ''){
+                    $('#dataStatusDateFrom').focus();
+                }else{
+                    $('#dataStatusDateThru').focus();
+                }
+            }
+        }
+        if ($('input[name="dataIsBranch"]:checked').length > 0){
+            if ($('#dataBranchNewDate').val() == ''){
+                e.preventDefault();
+                alert('Mohon mengisi start date terlebih dulu...!!?');
+                $('#dataBranchNewDate').focus();
+            }
+        }
+        if ($('input[name="dataIsCostCenter"]:checked').length > 0){
+            if ($('#dataCostCenterNewDate').val() == ''){
+                e.preventDefault();
+                alert('Mohon mengisi start date terlebih dulu...!!?');
+                $('#dataCostCenterNewDate').focus();
+            }
+        }
+        if ($('input[name="dataIsDepartment"]:checked').length > 0){
+            if ($('#dataDepartmentNewDate').val() == ''){
+                e.preventDefault();
+                alert('Mohon mengisi start date terlebih dulu...!!?');
+                $('#dataDepartmentNewDate').focus();
+            }
+        }
+        if ($('input[name="dataIsPosition"]:checked').length > 0){
+            if ($('#dataPositionNewDate').val() == ''){
+                e.preventDefault();
+                alert('Mohon mengisi start date terlebih dulu...!!?');
+                $('#dataPositionNewDate').focus();
+            }
+        }
+        if ($('input[name="dataIsSalary"]:checked').length > 0){
+            if ($('#dataSalaryNewDate').val() == ''){
+                e.preventDefault();
+                alert('Mohon mengisi start date terlebih dulu...!!?');
+                $('#dataSalaryNewDate').focus();
+            }
+        }
+    });
+		$('.allowance_item').on('keyup', function(){
+			$('#amount_old_total').val(calculateTotal($));
+		});
+		$('.allowance_item2').on('keyup', function(){
+			$('#amount_new_total').val(calculateTotal2($));
+		});
+		$('#dataCompanyNew').on('change', function(){
+			if (strEmployeeID == 0){
+				alert('Please select employee..!!?');	
+			}else{
+				if ($(this).val() != ''){
+					var strAddress = 'ajax_function.php?ajax=1&action=getSalarySetByCompany&id_company='+ $(this).val();
+					$.ajax({
+						type: "GET",
+						url: strAddress,
+						cache: false,
+						success: function(data){
+							var returnData = eval(data);
+							if (returnData && returnData.length > 0){
+								$('#dataSalarySetNew').empty();
+								$('#dataSalarySetNew').append('<option value="0" selected></option>');
+								for (idCompany in returnData[0]) {
+									$('#dataSalarySetNew').append('<option value="'+ idCompany +'">'+ returnData[0][idCompany] +'</option>');
+								}
+							}
+						}
+					});
+				}	
+			}
+		});
+		$('#dataSalarySetOld').on('change', function(){
+			if (strEmployeeID == 0){
+				alert('Please select employee..!!?');	
+			}else{
+				var strAddress = 'ajax_function.php?ajax=1&action=getDetailSalaryChangeTable&employee_id='+ strEmployeeID +'&salary_set_id='+ $(this).val();
+				$.ajax({
+					type: "GET",
+					url: strAddress,
+					cache: false,
+					success: function(data){
+						var returnData = data.trim();
+						if (returnData){
+							$('#salary_set_wrapper').html(data);
+							$('.allowance_item').off('keyup');
+							$('.allowance_item2').off('keyup');
+							$('.allowance_item').on('keyup', function(){
+								$('#amount_old_total').val(calculateTotal($));
+							});
+							$('.allowance_item2').on('keyup', function(){
+								$('#amount_new_total').val(calculateTotal2($));
+							});
+						}
+					}
+				});
+			}
+		});
+		//$('#dataCompanyNew').change();
+	});
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30">&nbsp;</td>
+          <td nowrap><strong>[var.strWordsProposalEntry] | <a href="mutation_list.php">
+            [var.strWordsProposalList]</a></strong></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox">
+      <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table width="100%" border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">
+              <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td width="30%">&nbsp;</td>
+                  <td width="5%" align="center">&nbsp;</td>
+                  <td width="65%">&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsProposalDate]</strong></td>
+                  <td align="center"><strong>:</strong></td>
+                  <td nowrap>[var.strInputDate]&nbsp;
+                    <input name="btnDate" type="button" id="btnDate" value="..">
+                  </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong> [var.strWordsLetterCode]</strong></td>
+                  <td align="center"><strong>:</strong></td>
+                  <td nowrap>[var.strInputLetterCode]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong> [var.strWordsEmployeeID]</strong></td>
+                  <td align="center"><strong>:</strong></td>
+                  <td nowrap>[var.strInputEmployee]&nbsp;<font color="red">*</font>
+                    <input name="btnGet" type="submit" id="btnGet" value="[var.strWordsGetInfo]">
+                  </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td><strong id="employee_name"></strong>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td width="30%" nowrap><strong>[var.strWordsNote]</strong></td>
+                  <td width="5%" align="center">:</td>
+                  <td width="65%" nowrap>[var.strInputNote]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong> [var.strWordsStatus]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputStatus]</td>
+                </tr>
+
+
+              </table>
+            </td>
+          </tr>
+          <tr class="tableHeader" style="cursor:pointer">
+            <td valign="top">[var.strInputIsStatus]</td>
+            <td valign="top" align="left" onClick="document.formInput.dataIsStatus.checked = !document.formInput.dataIsStatus.checked;checkStatus();"><strong>[var.strWordsEmployeeStatusConfirmation]</strong></td>
+          </tr>
+          <tr id="inputStatus">
+            <td valign="top">&nbsp;</td>
+            <td valign="top">
+              <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr valign="top">
+                  <td width="30%" nowrap>[var.strWordsEmployeeStatus]</td>
+                  <td width="5%" align="center">:</td>
+                  <td width="65%" nowrap>[var.strInputStatusNew]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> [var.strWordsDateFrom]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputStatusDateFrom]
+                    <input name="btnStatusDateFrom" type="button" id="btnStatusDateFrom" value=".."> [var.strWordsUntil] [var.strInputStatusDateThru]
+                    <input name="btnStatusDateThru" type="button" id="btnStatusDateThru" value="..">
+                  </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">
+              <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr class="tableHeader" style="cursor:pointer">
+            <td valign="top">[var.strInputIsBranch]</td>
+            <td valign="top" align="left" onClick="document.formInput.dataIsBranch.checked = !document.formInput.dataIsBranch.checked;checkBranch();"><strong>[var.strWordsBranchChanges]</strong></td>
+          </tr>
+          <tr id="inputBranch">
+            <td valign="top">&nbsp;</td>
+            <td valign="top">
+              <table width="700" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td nowrap>Branch Office</td>
+                  <td nowrap>Branch Contract</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>[var.strWordsBranchOld]&nbsp;</td>
+                  <td align="center">&nbsp;:&nbsp;</td>
+                  <td nowrap>[var.strInputBranchContractOld]</td>
+                  <td nowrap>[var.strInputBranchPenugasanOld]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>[var.strWordsBranchNew]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputBranchContractNew]</td>
+                  <td nowrap>[var.strInputBranchPenugasanNew]</td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWordsStartDate]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputBranchNewDate]
+                    <input name="btnBranchNewDate" type="button" id="btnBranchNewDate" value="..">
+                  </td>
+                  <td>&nbsp;</td>
+            </td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            </table>
+          </td>
+        </tr>
+    <tr>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">
+        <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr class="tableHeader" style="cursor:pointer">
+      <td valign="top">[var.strInputIsCostCenter]</td>
+      <td valign="top" align="left" onClick="document.formInput.dataIsCostCenter.checked = !document.formInput.dataIsCostCenter.checked;checkCostCenter();"><strong>[var.strWordsCostCenterChanges]</strong></td>
+    </tr>
+    <tr id="inputCostCenter">
+      <td valign="top">&nbsp;</td>
+      <td valign="top">
+        <table width="700" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td nowrap>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td nowrap>Cost Center</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsCostCenterOld]&nbsp;</td>
+            <td align="center">&nbsp;:&nbsp;</td>
+            <td nowrap>[var.strInputCostCenterOld]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsCostCenterNew]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputCostCenterNew]</td>
+          </tr>
+          <tr>
+            <td nowrap>[var.strWordsStartDate]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputCostCenterNewDate]
+              <input name="btnCostCenterNewDate" type="button" id="btnCostCenterNewDate" value="..">
+            </td>
+            <td>&nbsp;</td>
+      </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      </table>
+    </td>
+  </tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+  <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+    <tr>
+      <td>&nbsp;</td>
+      <td align="center">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+</td>
+</tr>
+    <tr class="tableHeader" style="cursor:pointer">
+      <td valign="top">[var.strInputIsDepartment]</td>
+      <td valign="top" align="left" onClick="document.formInput.dataIsDepartment.checked = !document.formInput.dataIsDepartment.checked;checkOrganization();"><strong>[var.strWordsEmployeeDpartmentChanges]</strong></td>
+    </tr>
+    <tr id="inputDepartment">
+      <td valign="top">&nbsp;</td>
+      <td valign="top">
+        <table width="700" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td nowrap>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td align="center">[var.strWordsCompany]</td>
+            <td align="center">[var.strWordsManagement]</td>
+            <td align="center">[var.strWordsDivision]</td>
+            <td align="center">[var.strWordsDepartment]</td>
+            <td align="center">[var.strWordsSection]</td>
+            <td align="center">[var.strWordsSubSection]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsRecent]&nbsp;</td>
+            <td align="center">&nbsp;:&nbsp;</td>
+            <td nowrap>[var.strInputCompanyOld]</td>
+            <td nowrap>[var.strInputManagementOld]</td>
+            <td nowrap>[var.strInputDivisionOld]</td>
+            <td nowrap>[var.strInputDepartmentOld]</td>
+            <td nowrap>[var.strInputSectionOld]</td>
+            <td nowrap>[var.strInputSubSectionOld]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsNew]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputCompanyNew]</td>
+            <td nowrap>[var.strInputManagementNew]</td>
+            <td nowrap>[var.strInputDivisionNew]</td>
+            <td nowrap>[var.strInputDepartmentNew]</td>
+            <td nowrap>[var.strInputSectionNew]</td>
+            <td nowrap>[var.strInputSubSectionNew]</td>
+          </tr>
+          <tr>
+            <td nowrap>[var.strWordsStartDate]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputDepartmentNewDate]
+              <input name="btnDepartmentNewDate" type="button" id="btnDepartmentNewDate" value="..">
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">
+        <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr class="tableHeader" style="cursor:pointer">
+      <td valign="top">[var.strInputIsPosition]</td>
+      <td valign="top" align="left" onClick="document.formInput.dataIsPosition.checked = !document.formInput.dataIsPosition.checked;checkPosition();"><strong>[var.strWordsEmployeePositionChanges]</strong></td>
+    </tr>
+    <tr id="inputPosition">
+      <td valign="top">&nbsp;</td>
+      <td valign="top">
+        <table width="700" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td nowrap>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td align="center">[var.strWordsPosition]</td>
+            <td align="center">[var.strWordsGrade]</td>
+            <td align="center">[var.strWordsFunctional]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsRecent]&nbsp;</td>
+            <td align="center">&nbsp;:&nbsp;</td>
+            <td nowrap>[var.strInputPositionOld]</td>
+            <td nowrap>[var.strInputGradeOld]</td>
+            <td nowrap>[var.strInputFunctionalOld]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsNew]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputPositionNew]</td>
+            <td nowrap>[var.strInputGradeNew]</td>
+            <td nowrap>[var.strInputFunctionalNew]</td>
+          </tr>
+          <tr>
+            <td nowrap>[var.strWordsStartDate]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputPositionNewDate]
+              <input name="btnPositionNewDate" type="button" id="btnPositionNewDate" value="..">
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">
+        <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr class="tableHeader" style="cursor:pointer">
+      <td valign="top">[var.strInputIsNIK]</td>
+      <td valign="top" align="left" onClick="document.formInput.dataIsNIK.checked = !document.formInput.dataIsNIK.checked;checkNIK();"><strong>[var.strWordsEmployeeNIKChanges]</strong></td>
+    </tr>
+    <tr id="inputNIK">
+      <td valign="top">&nbsp;</td>
+      <td valign="top">
+        <table width="700" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td nowrap>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td nowrap>[var.strWordsNIK]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsRecent]&nbsp;</td>
+            <td align="center">&nbsp;:&nbsp;</td>
+            <td nowrap>[var.strInputNIKOld]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsNew]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputNIKNew]</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">
+        <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    
+    <tr  class="tableHeader" style="cursor:pointer">
+      <td valign="top">[var.strInputIsSalary]</td>
+      <td valign="top" align="left" onClick="document.formInput.dataIsSalary.checked = !document.formInput.dataIsSalary.checked;checkSalary();"><strong>[var.strWordsEmployeeSalaryChanges]</strong></td>
+    </tr>
+    <tr id="inputSalary">
+      <td valign="top">&nbsp;</td>
+      <td valign="top">
+        <table width="700" border="0" align="left" cellpadding="1" cellspacing="0" >
+          <tr valign="top">
+          	<td nowrap>[var.strWordsSalarySetOld]&nbsp;</td>
+            <td align="center">&nbsp;:&nbsp;</td>
+            <td nowrap>[var.strSalarySetOld][var.strInputIDEmployee]</td>
+          </tr>
+          <tr valign="top">
+          	<td nowrap>[var.strWordsSalarySetNew]&nbsp;</td>
+            <td align="center">&nbsp;:&nbsp;</td>
+            <td nowrap>[var.strSalarySetNew]</td>
+          </tr>
+          <tr valign="top">
+            <td id="salary_set_wrapper" colspan="3">[var.strInputDetailSalary]</td>
+          </tr>
+          <td nowrap>[var.strWordsStartDate]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputSalaryNewDate]
+              <input name="btnSalaryNewDate" type="button" id="btnSalaryNewDate" value=".."></td>
+            <td>&nbsp;</td>
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table></td>
+    </tr>
+
+    <tr>
+      <tr>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">
+          <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+            <tr>
+              <td>&nbsp;</td>
+              <td align="center">&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <td align="center" valign="top">&nbsp;</td>
+      <td align="center" valign="top">
+        <table width="700" border="0" align="left" cellpadding="1" cellspacing="0">
+
+          <tr>
+            <td>&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td><strong id="employee_name"></strong>&nbsp;
+              <input name="btnSave" type="submit" id="btnSave2" value="[var.strWordsSave]"> &nbsp;
+              <input name="btnNew" type="button" id="btnNew" value="[var.strWordsClearForm]" onClick="location.href = 'mutation_edit.php';">
+              <input name="dataID" type="hidden" id="dataID2" value="[var.strDataID]">
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">&nbsp;</td>
+      <td align="center" valign="top">&nbsp; </td>
+    </tr>
+    </table>
+    </form>
+    </td>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+</table>

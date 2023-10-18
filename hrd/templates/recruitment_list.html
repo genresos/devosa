@@ -1,0 +1,138 @@
+
+<script type="text/javascript">
+  
+  function openWindowDialog(url) 
+  {
+    var winName = "_blank";
+    var width=800;
+    var height=500;
+    var left = (screen.width - width) / 2;
+    var top = (screen.height - height) / 2;
+    var foo = window.open(url,winName,"menubar=no,status=no,resizable=yes,scrollbars=yes,modal=yes,top="+top+",left="+left+",width="+width+",height="+height+"");
+    foo.focus();
+  }
+  
+</script>
+<script type="text/javascript">
+  // fungsi untuk minta konfirmasi delete
+  function confirmFinished() {
+    return confirm("Are you sure want to finished this MRF?");
+  } //confirmDelete
+
+  function confirmStatusChanges() {
+    return confirm("Are you sure want to change status of selected data?");
+  } //confirmChange
+
+  function openWindowDialog(url) 
+  {
+    var winName = "_blank";
+    var width=800;
+    var height=500;
+    var left = (screen.width - width) / 2;
+    var top = (screen.height - height) / 2;
+    var foo = window.open(url,winName,"menubar=no,status=no,resizable=yes,scrollbars=yes,modal=yes,top="+top+",left="+left+",width="+width+",height="+height+"");
+    foo.focus();
+  }
+  
+  function printList()
+  {
+    document.form1.target = '_blank';
+  }
+
+  function doSearch()
+  {
+    document.form1.target = '';
+  }
+
+  function exportExcel()
+  {
+    document.form1.target = '';
+  }
+  
+	var myClient = {
+    
+    confirmDelete : function()
+    {
+      document.form1.target = '';
+      return confirm('[var.strConfirmDelete]');
+    }
+  }
+
+  var viewWindow = new Window({
+    className: "alphacube",
+    width:750, height:475,
+    recenterAuto:false
+  });
+  function openViewWindowByContentId(strTitle, contentID, width, height)
+  {
+    viewWindow.setTitle(strTitle);
+    if (typeof width == 'undefined') width = 750;
+    if (typeof height == 'undefined') height = 475;
+    viewWindow.setSize(width, height);
+    //viewWindow.setContent(contentID);
+    viewWindow.setHTMLContent($(contentID).innerHTML);
+    viewWindow.showCenter();
+  }
+</script>
+<form name="form1" id="form1" method="post">
+<table width="100%" border="0" cellpadding="3" cellspacing="3">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="2" cellpadding="2">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong><a href="recruitment_edit.php">[var.strWordsDataEntry]</a> | [var.strWordsMRFList]</strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.DataGrid;protect=no;htmlconv=no]
+<br><strong>Legend: </strong>
+      <table border=0 cellpadding=0 cellspacing=2>
+        <tr>
+          <td width=20 height=20 class='bgNewData' style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsNew]</td>
+          <td width="100">&nbsp;</td>
+          <td width=20 height=20 class='bgCheckedData' style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsChecked]</td>
+          <td width="100">&nbsp;</td>
+          <td width=20 height=20 class='bgDenied' style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsDenied]</td>
+        </tr>
+        <tr>
+          <td width=20 height=20 class='bgApprovedData' style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsApproved]</td>
+          <td width="100">&nbsp;</td>
+          <td width=20 height=20 style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsApproved2]</td>
+        </tr>
+      </table>
+ <br>
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+</table>
+</form>

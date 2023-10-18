@@ -1,0 +1,69 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+          <a href="attendance_import.php">[var.strWordsImportAttendance]</a> |
+          [var.strWordsEntryAttendance] |
+          <a href="attendance_list.php">[var.strWordsAttendanceList]</a> | <a href="attendance_report.php">[var.strWordsAttendanceReport]</a> </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td valign="top">
+      [var.formFilter;protect=no;htmlconv=no]
+    </td>
+  </tr>
+    <tr>
+      <td>
+        <form action="" method="post" name="formData" id="formData">
+
+        <input type=hidden name=totalData value="[var.intTotalData]">
+        [var.DataGrid; protect=no; htmlconv=no]
+        </form>
+      </td>
+    </tr>
+  </tr>
+</table>
+<script>
+
+  var myClient = {
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete] ?');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave] ?');
+    }
+  }
+  // fungsi untuk inisialisasi
+  function initPage_() {
+      document.formFilter.dataDateFrom.focus();
+      Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+      Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+      init();
+  }//initPage
+</script>

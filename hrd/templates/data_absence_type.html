@@ -1,0 +1,86 @@
+<script type="text/javascript">
+	var myClient = {
+
+
+    editData : function(params)
+    {
+      arrParam  = params.split("|");
+      idx = arrParam[0];
+      if ($('formMessage') != null) $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('dataCode').value = "";
+        $('dataNote').value = "";
+        $('dataIsLeave').checked = false;
+        $('dataDeductLeave').checked = false;
+        $('dataDeductAddLeave').checked = false;
+        $('dataLeaveWeight').value = "0";
+        $('dataCancelPartialAbsence').checked = false;
+        $('dataAttend').checked = false;
+        for(n = 1;n<arrParam.length;n = n+1)
+          $('data'+ arrParam[n]).checked = false;
+          
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('dataCode').value = $F("detailCode" + idx);
+        $('dataNote').value = $F("detailNote" + idx);
+        $('dataIsLeave').checked = ($F("detailIsLeave" + idx) == 't');
+        $('dataDeductLeave').checked = ($F("detailDeductLeave" + idx) == 't');
+        $('dataDeductAddLeave').checked = ($F("detailDeductAddLeave" + idx) == 't');
+        $('dataLeaveWeight').value = $F("detailLeaveWeight" + idx);
+        $('dataCancelPartialAbsence').checked = ($F("detailCancelPartialAbsence" + idx) == 't');
+        $('dataAttend').checked = ($F('detailAttend' + idx) == 't');
+
+        for(n = 1;n<arrParam.length;n = n+1)
+        {
+          $('data'+ arrParam[n]).checked = ($F("detail" + arrParam[n] + idx) == 't');
+        }
+
+      }
+      $('dataCode').focus();
+      $('dataCode').select();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="blank"><img src="[var.pageIcon]" border="0" /></td>
+          <td class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top" height="100%">
+[var.DataGrid;protect=no;htmlconv=no]
+   </td>
+  </tr>
+</table>

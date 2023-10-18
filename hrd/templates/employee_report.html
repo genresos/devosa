@@ -1,0 +1,191 @@
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/calendar-en.js"></script>
+  <link href="../css/calendar.css" rel="stylesheet" type="text/css">
+  <script>
+  <!--
+
+  // menentukan kriteria apa aja yang aktif, sesuai jenis report
+  function configureCriteria() {
+    var pilihan = document.formInput.dataType.value;
+    /* batal
+    if (pilihan == 0) {
+      document.formInput.dataDateFrom.disabled = false;
+      document.formInput.dataDateThru.disabled = true;
+      document.formInput.dataSection.disabled = false;
+      //document.formInput.dataSubsection.disabled = false;
+    } else if (pilihan == 1) {
+      document.formInput.dataDateFrom.disabled = false;
+      document.formInput.dataDateThru.disabled = false;
+      document.formInput.dataSection.disabled = false;
+      //document.formInput.dataSubsection.disabled = false;
+    }*/
+    //document.formInput.dataDateFrom.disabled = (pilihan == 2);
+
+  }//configgure Criteri
+
+
+  function goShow(tipe) {
+    var pilihan = document.formInput.dataType.value;
+    str = (tipe == 0) ? "" : "?btnExcel=Excel";
+    document.formInput.target = (tipe == 1) ? "" : "_blank";
+    if (pilihan == 0) {
+
+      document.formInput.action = "employee_report_new.php" + str;
+      document.formInput.submit();
+    } else if (pilihan == 1) {
+
+      document.formInput.action = "employee_report_resign.php" + str;
+      document.formInput.submit();
+    } else if (pilihan == 2) {
+
+      document.formInput.action = "employee_report_recap.php" + str;
+      document.formInput.submit();
+    } else if (pilihan == 3){
+    	document.formInput.action = "employee_report_endcontract.php" + str;
+      document.formInput.submit();
+    }
+
+
+  }
+
+  function initPage_() {
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    configureCriteria();
+  } // initPage
+  -->
+  </script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td class="pageHeaderTitle" align="left"> <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30"><img width="30" src="[var.pageIcon]" border="0" /></td>
+            <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+          </tr>
+        </tbody>
+      </table></td>
+  </tr>
+  <tr>
+    <td> <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30"></td>
+            <td class="pageHeaderTitleText" nowrap="nowrap"><strong><a href="employee_search.php">[var.strWordsSearchEmployee]</a> | 
+            <a href="employee_resume_all.php">[var.strWordsSimpleResume] | </a>
+            [var.strWordsReport] </strong></td>
+          </tr>
+        </tbody>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp</td>
+  </tr>
+  <tr>
+    <td class="inputTop">[var.strWordsFILTERDATA]</td>
+  </tr>
+
+  <tr>
+    <td align="left" class="inputBox"> <form action="" method="post" name="formInput" target="_blank" id="formInput">
+        <table width="700" border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td valign="top"> <table align="left" border="0" cellpadding="1" cellspacing="0">
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap" width="15%">&nbsp;Report Type</td>
+                    <td width="5%">:</td>
+                    <td width="80%"><select name="dataType" id="dataType" onChange="configureCriteria();" style="width:200px">
+                        <option value="2">Employee Report</option>
+                        <option value="1">List of Resign</option>
+                        <option value="3">List of End Contract Employee</option>
+                        <option value="0">List of New Employee</option>
+                      </select></td>
+                  </tr>
+                  <tr>
+                    <td height="21" nowrap="nowrap"> &nbsp;Date From</td>
+                    <td>:</td>
+                    <td><input name="dataDateFrom" type="text" id="dataDateFrom" value="[var.dateFrom]" size="15" maxlength="10">
+                      <input name="btnDateFrom" type="button" id="btnDateFrom" value=".."></td>
+                  </tr>
+                  <tr>
+                    <td height="21" nowrap="nowrap"> &nbsp;Date Thru</td>
+                    <td>:</td>
+                    <td><input name="dataDateThru" type="text" id="dataDateThru" value="[var.dateThru]" size="15" maxlength="10">
+                      <input name="btnDateThru" type="button" id="btnDateThru" value=".."></td>
+                  </tr>                  
+                  <tr>
+                    <td colspan=3> &nbsp;</td>
+                  </tr>
+                 
+                  <tr>
+                    <td>&nbsp;[var.strWordsCompany]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputCompany]</td>
+                  </tr>
+				  <tr>
+                    <td>&nbsp;[var.strWordsManagement]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputManagement]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsDivision]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputDivision]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsDepartment]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputDepartment]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsSection]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputSection]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsSubSection]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputSubSection]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsBranch]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputBranch]</td>
+                  </tr>
+				   				<tr>
+                    <td>&nbsp;[var.strWordsGrade]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputGrade]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsLevel]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputPosition]</td>
+                  </tr>
+                  <tr>
+                    <td colspan=3> &nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td nowrap> <input name="btnShow" id="btnShow" value="[var.strWordsShow]" type="button" onClick="goShow(0);">
+                    <input name="btnShow" id="btnExcel" value="[var.strWordsExcel]" type="button" onClick="goShow(1);">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+              </table></td>
+            <td valign="top">&nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  </tbody>
+</table>

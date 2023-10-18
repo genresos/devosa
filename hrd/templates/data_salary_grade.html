@@ -1,0 +1,79 @@
+<script type="text/javascript">
+	var myClient = {
+    editData : function(params)
+    {
+      arrParam  = params.split("|");
+      idx = arrParam[0];
+      strSet = arrParam[1];
+      intMaxSet = arrParam[2];
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+		$('grade_code').removeAttribute('readOnly');
+        $('dataID').value = "";
+        $('grade_code').value = "";
+        $('basic_salary').value = 0;
+        for (i=1; i<= intMaxSet; i=i+1)
+        {
+          $(strSet + i).value = 0;
+        }
+        $('note').value = "";
+      }
+      else if (idx != '')
+      {
+		$('grade_code').readOnly = true;
+        $('dataID').value = $F("detailID" + idx);
+        $('grade_code').value = $F("detailCode" + idx);
+        $('basic_salary').value = $F("detailBasicSalary" + idx);
+        for (i=1; i<= intMaxSet; i=i+1)
+        {
+          $(strSet + i).value = $F("detailAllowance" + i + "_" + idx);
+        }
+        $('note').value = $F("detailNote" + idx);
+      }
+      $('grade_code').focus();
+      $('grade_code').select();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    },  
+
+  }
+</script>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top" height="100%">
+      [var.DataGrid;protect=no;htmlconv=no]
+   </td>
+  </tr>
+</table>

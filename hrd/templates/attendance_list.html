@@ -1,0 +1,116 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script type="text/javascript" src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+    // script-script tambahan, khusus untu loockup employee
+
+    AC_targetElements = ["dataEmployee"];
+
+    // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+    // kehilangan foku
+    function onCodeBlur() {
+    var kode = document.formFilter.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script type="text/javascript">
+  <!--
+  // fungsi memeriksa validasi input
+  function validInput() {
+      if (document.formFilter.dataDateFrom.value == "") {
+          alert("Empty Date!");
+          document.formFilter.dataDateFrom.focus();
+          return false;
+      }
+      if (document.formFilter.dataDateThru.value == "") {
+          alert("Empty Date!");
+          document.formFilter.dataDateThru.focus();
+          return false;
+      }
+
+      return true;
+  } //validInput
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmStatusChanges(isDenied) {
+    bolOK = confirm("[var.strConfirmChangeStatus]");
+    if (bolOK && isDenied) {
+      //document.formData.action = "absence_denied.php";
+    }
+    return bolOK;
+  } //confirmStatusChanges
+
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmRecheck() {
+    bolOK = confirm("This action will re-check attendance and absence data, can take a long time. Continue?");
+    return bolOK;
+  } //confirmRecheck
+
+   // fungsi untuk mengecek checkbox di depan (untuk approval)
+  function checkAll() {
+    var total = document.formData.totalData.value;
+    cek = (document.formData.chkAll.checked) ? "true" : "false";
+    for (i = 1; i <= total; i++) {
+      eval("document.formData.chkID" + i + ".checked = " + cek + ";");
+    }
+  }//checkAll
+
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+      document.formFilter.dataDateFrom.focus();
+      Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+      Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+      init();
+      onCodeBlur();
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+          <a href="attendance_import.php">[var.strWordsImportAttendance]</a> |
+          <a href="attendance_edit_by_employee.php">[var.strWordsEntryAttendance]</a> | 
+            [var.strWordsAttendanceList] | <a href="attendance_report.php">[var.strWordsAttendanceReport]</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td valign="top">
+      [var.formFilter;protect=no;htmlconv=no]
+    </td>
+  </tr>
+    <tr>
+      <td>
+        <form action="" method="post" name="formData" id="formData">
+				[var.hiddenInput; protect=no; htmlconv=no]
+        <input type=hidden name=totalData value="[var.intTotalData]">
+        [var.DataGrid; protect=no; htmlconv=no]
+        </form>
+      </td>
+    </tr>
+  </tr>
+</table>

@@ -1,0 +1,319 @@
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/calendar-en.js"></script>
+  <link href="../css/calendar.css" rel="stylesheet" type="text/css">
+  <script src="scripts/acEmployee.js"></script>
+  <script src="scripts/ylib.js"></script>
+  <script type="text/javascript" src="../js/jquery-ui/jquery.min.js"></script>
+  <script src="employee_data.php"></script>
+  <link href="../css/ac.css" rel="stylesheet" type="text/css">
+  <script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+  </script>
+  <script>
+  <!--
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDateFrom.focus();
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    init();
+    onCodeBlur();
+  }//initPage
+  
+  $(document).ready(function() {
+  	var xlsfilename = '[var.xlsfilename; protect=no; htmlconv=no]';
+  	if (xlsfilename != ''){
+  		window.open(xlsfilename);
+  	}
+  })
+  
+  -->
+  </script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td class="pageHeaderTitle" align="left">
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">[var.strPageTitle]</td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+<!--
+          <tr>
+            <td width="30"></td>
+            <td nowrap="nowrap"><strong>
+              <a href="loan_edit.php">[var.strWordsDataEntry]</a> |
+              [var.strWordsLoanList] |
+              <a  href="loan_type.php">[var.strWordsLoanType]</a> |
+              <a  href="loan_purpose.php">[var.strWordsLoanPurpose]</a>
+            </td>
+          </tr>
+-->
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="inputBox" valign="top">
+      <form action="" method="post" name="formInput" id="formInput"
+ onsubmit="return validInput();">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tbody>
+            <tr>
+              <td valign="top">
+              <table align="left" border="0" cellpadding="1"
+ cellspacing="0">
+                <tbody>
+                  <tr valign="top">
+                    <td>&nbsp;</td>
+                    <td align="center" width="15">&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;[var.strWordsDateFrom]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputDateFrom]&nbsp; <input name="btnDateFrom" id="btnDateFrom" value=".." type="button"></td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap"> &nbsp;[var.strWordsDateThru]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputDateThru]&nbsp;
+                      <input  name="btnDateThru" id="btnDateThru" value=".." type="button"></td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;[var.strWordsLoanCategory]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputLoanCategory]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;[var.strWordsLoanType]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputLoanType]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;[var.strWordsStatus]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputStatus]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp[var.strWordsEmployeeID]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputEmployee]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td>&nbsp;</td>
+                    <td align="center">&nbsp;</td>
+                    <td><strong id="employee_name"> </strong><br>
+                    </td>
+                  </tr>
+                  <tr valign="top">
+                    <td>&nbsp;</td>
+                    <td align="center">&nbsp;</td>
+                    <td> <input name="btnShow" id="btnShow" value="[var.strWordsShowData]" type="submit">
+                         <input name="btnExcel" id="btnExcel" value="[var.strWordsExcel]" type="submit" onClick="document.formInput.target = ''">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              </td>
+              <td valign="top" width="20">&nbsp;</td>
+              <td valign="top">
+              <table align="left" border="0" cellpadding="1"
+ cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td align="center" width="15">&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap> &nbsp;[var.strWordsCompany]</td>
+                    <td align="center">:</td>
+                    <td nowrap>[var.strInputCompany]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap"> &nbsp;[var.strWordsDivision]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputDivision]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap"> &nbsp;[var.strWordsDepartment]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputDepartment]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td>&nbsp;[var.strWordsSection]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputSection]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td>&nbsp;[var.strWordsSubsection]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputSubsection]</td>
+                  </tr>
+									<tr valign="top">
+                    <td>&nbsp;[var.strWordsSubsection]</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputSubsection]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td>&nbsp;</td>
+                    <td align="center">&nbsp;</td>
+                    <td>&nbsp; </td>
+                  </tr>
+                </tbody>
+              </table>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">&nbsp;</td>
+              <td valign="top">&nbsp;</td>
+              <td valign="top">&nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="listTop"><strong>[var.strWordsListEmpLoan] [var.strInfo]</strong></td>
+    </tr>
+    <tr>
+      <td>
+      <form action="" method="post" name="formData" id="formData">
+        <table class="gridTable" border="0" cellpadding="0"
+ cellspacing="0">
+          <tbody>
+            <tr class="tableHeader" align="center">
+              <td class="tableHeader" nowrap="nowrap" width="5">&nbsp;</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsEmployeeID]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsEmployeeID2]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsName]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsDivision]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsDepartment]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsPosition]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsFunctional]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsJoinDate]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsResignDate]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsActive]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsLoanDate]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsLoanCategory]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsLoanPurpose]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsLoanType]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsAmount]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsInterest]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsPeriode]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsMonthlyPayment]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsStartPayment] </td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsFinishPayment]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsPaid]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsNote]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsCreatedBy]</td>
+<!--              <td class="tableHeader" nowrap="nowrap" width="20">&nbsp;</td>-->
+            </tr>
+[var.strDataDetail] <tr>
+              <td> <input name="chkAll" id="chkAll" value="All" onClick="checkAll();" type="checkbox"> &nbsp;</td>
+              <td colspan="17">
+                [var.strButtonList]
+                <input  name="totalData" id="totalData" value="[var.intTotalData]"  type="hidden">
+                [var.strHidden] &nbsp;
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br><strong>Legend: </strong>
+      <table border=0 cellpadding=0 cellspacing=2>
+        <tr>
+          <td width=20 height=20 class='bgNewData' style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsNew]</td>
+          <td width="100">&nbsp;</td>
+          <td width=20 height=20 class='bgCheckedData' style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsChecked]</td>
+          <td width="100">&nbsp;</td>
+          <td width=20 height=20 class='bgDenied' style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsDenied]</td>
+        </tr>
+        <tr>
+          <td width=20 height=20 class='bgApprovedData' style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsApproved]</td>
+          <td width="100">&nbsp;</td>
+          <td width=20 height=20 style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsApproved2]</td>
+        </tr>
+      </table>
+ <br>

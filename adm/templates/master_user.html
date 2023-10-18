@@ -1,0 +1,78 @@
+<script type="text/javascript">
+	var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataLogin').value = "";
+        $('dataPwd').value = "";
+        $('dataName').value = "";
+        $('dataEmployee').value = "";
+        $('dataGroup').selectedIndex = -1;
+        $('dataCompany').selectedIndex = -1;
+        $('dataIdAdmModule').selectedIndex = -1;
+        $('dataID').value = "";
+        $('dataActive').checked = false;
+      }
+      else if (idx != '')
+      {
+        $('dataLogin').value = $F("detailLogin" + idx);
+        $('dataPwd').value = "";
+        $('dataName').value = $F("detailName" + idx);
+        $('dataEmployee').value = $F("detailEmployee" + idx);
+        $('dataGroup').value = $F("detailGroup" + idx);
+        $('dataCompany').value = $F("detailCompany" + idx);
+        $('dataIdAdmModule').selectedIndex = -1;
+        $('dataIdAdmModule').value = $F("detailIdAdmModule" + idx);
+        $('dataID').value = $("detailID" + idx).value;
+        var aktif = $F("detailActive" + idx);
+        $('dataActive').checked = aktif == 't';
+      }
+      $('dataLogin').focus();
+      $('dataLogin').select();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('Are you sure to delete this selected data?');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('Do you want to save this entry?');
+    }
+  }
+</script>
+<table class="content" width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="blank"><img src="[var.pageIcon]" border="0" /></td>
+          <td class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td height="10"><strong>[var.strWordListofUser]</strong></td>
+  </tr>
+  <tr> 
+    <td valign="top" height="100%">
+[var.DataGrid;protect=no;htmlconv=no]
+   </td>
+  </tr>
+</table>

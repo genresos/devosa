@@ -1,0 +1,613 @@
+<script src="scripts/invosa.js"></script>
+<script type="text/javascript" src="../js/prototype.js"></script>
+<script type="text/javascript" src="../dropmenu.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+
+<script>
+  <!--
+
+  function goCalendar(MonthDiff, objName)
+  {
+    var intMonth = document.formCalendar.dataMonth.value;
+    var intYear = document.formCalendar.dataWYear.value;
+    intMonth = parseInt(intMonth) + MonthDiff;
+    if (intMonth > 12)
+    {
+      intMonth = 1;
+      intYear++;
+    }
+    else if (intMonth < 1)
+    {
+      intMonth = 12;
+      intYear--;
+    }
+    queryString = "ajax=1&month="+intMonth+"&year="+intYear;
+    new Ajax.Request("view_calendar.php",
+    { method:'get',
+      parameters: queryString,
+      onComplete: function(transport, json)
+      {
+        //alert(transport.responseText );
+        var arrData = transport.responseText.split("|||");
+        if (arrData.length >= 2)
+        {
+
+          $('calTitle').update (arrData[0]);
+          $(objName).update (arrData[1]);
+          document.formCalendar.dataMonth.value = intMonth;
+          document.formCalendar.dataWYear.value = intYear;
+        }
+      },
+      onLoading: function()
+      {
+      },
+      onFailure: function()
+      {
+      }
+    });
+  }
+
+  // fungsi untuk melihat alert
+  function goAlert(url) {
+    if (url != "") {
+      document.formAlert.action = url;
+      if (arguments.length > 1) {
+        // yang kedua dianggap sebagai status
+        document.formAlert.btnShowAlert.value = 1;
+        document.formAlert.dataStatus.value = arguments[1];
+        document.formAlert.dataRequestStatus.value = arguments[1];
+      }
+
+      document.formAlert.submit();
+    }
+  }
+
+  function openWindowCalendar()
+  {
+    var w = 640;
+    var h = 480;
+    kiri = (screen.width / 2) - w;
+    atas = (screen.height / 2) - h;
+    var intMonth = document.formCalendar.dataMonth.value;
+    var intYear = document.formCalendar.dataWYear.value;
+    url = "view_calendar.php?month="+intMonth+"&year="+intYear ;
+    properti = "width="+w+", height="+h+", resizable=yes, statusbar=no,menubar=yes, titlebar=no, top=" + atas + ", left=" + kiri;
+    window.open(url, "_blank", properti);
+  }
+  -->
+</script>
+<table width="100%" border="0" cellspacing="0" cellpadding="8">
+  <tr>
+    <td valign="top">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayShortcut]">
+        <tr>
+          <td width="5%">&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="pageHeaderTitle">
+          <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/direction.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsShortcut]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp; </td>
+          <td><strong><a href="attendance_ess.php">[var.strWordsTimeInOut]</a></strong><br>
+            &nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp; </td>
+          <td><strong><a href="employee_search.php">[var.strWordsEmployeeInfo]</a></strong><br>
+            [var.strWordsSubEmployeeInfo].</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td><strong><a href="attendance_list.php">[var.strWordsAttendance]</a><br>
+            </strong>[var.strWordsSubAttendance].<strong> </strong></td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td height="19"><strong><a href="absence_edit.php">[var.strWordsAbsence]</a></strong><br>
+            [var.strWordsSubAbsence].</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td height="19"><strong><a href="leave_annual.php">[var.strWordsLeave]</a></strong><br>
+            [var.strWordsSubLeave].</td>
+        </tr>
+        <!-- <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td height="19"><strong><a href="medical_edit.php">Medical</a></strong><br>
+            View and input medical claim proposal.</td>
+        </tr> -->
+   <tbody style="[var.strDisplayTampilovertime]">
+   [var.strDetailTampilovertime]
+   </div>
+      </tbody>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayBirthday]">
+       <tr><td>&nbsp;</td></tr>
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/face-grin.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsBirthday]</td>
+              </tr>
+            </table></td>
+        </tr>
+
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>[var.strWordsNo]</td>
+                <td nowrap>[var.strWordsName]</td>
+                <td align="center" nowrap>[var.strWordsFm]</td>
+                <td align="center" nowrap>[var.strWordsBirthday]</td>
+               <!-- <td align="center">Age</td>-->
+              </tr>
+              [var.strDetailBirthday]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <!-- <td>&nbsp;</td> -->
+              </tr>
+            </table><br /></td>
+        </tr>
+   <tr>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" >
+   <tbody style="[var.strDisplayTripcuti]">
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/about.png" border="0" width="30"/></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsTripcuti]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>[var.strWordsNo]</td>
+                <td nowrap>[var.strWordsName]</td>
+                <td align="center" nowrap>[var.strWordsStartDate]</td>
+                <td align="center" nowrap>[var.strWordsEndDate]</td>
+        <td align="center">[var.strWordsDescription]</td>
+              </tr>
+              [var.strDetailTripcuti]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+        <td>&nbsp;</td>
+              </tr>
+            </table>
+   </tr>
+        <tr>
+          <td height="19">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" >&nbsp;</td>
+        </tr>
+      </table>
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" >
+   <tbody style="[var.strDisplayTripcuti]">
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+<!--
+                <td width="30"><img src="../images/icons/about.png" border="0" width="30"/></td>
+                <td nowrap class="pageHeaderTitleText" style="color:red;"><blink>[var.strWordsEotm]</blink></td>
+-->
+              </tr>
+            </table></td>
+        </tr>
+
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+<!--
+              <tr class="tableHeader">
+                <td nowrap>No.</td>
+                <td nowrap>Name</td>
+                <td align="center" nowrap>Office</td>
+                <td align="center" nowrap>Month</td>
+        <td align="center">Year</td>
+              </tr>
+              [var.strDetailEotm]
+              <tr>
+-->
+<!--
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+        <td>&nbsp;</td>
+-->
+              </tr>
+            </table>
+   </tr>
+<!--
+        <tr>
+          <td height="19">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" >&nbsp;</td>
+        </tr>
+-->
+      </table>
+
+
+
+
+
+      <p>&nbsp;</p></td>
+
+    <td valign="top">
+      <form name="formAlert" id="formAlert" method="POST">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayAlert]">
+        <tr>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/faq.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsAlert]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td valign="top">[var.strDetailAlert]</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;
+            <input type=hidden name="btnShowAlert" value=0>
+            <input type=hidden name="dataStatus">
+            <input type=hidden name="dataRequestStatus">
+          </td>
+        </tr>
+        </table>
+        <br>
+      </form>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayContract]">
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/contact.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsEmployeeContract]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>NIK</td>
+                <td nowrap>NIK Corporate</td>
+                <td nowrap>Division</td>
+                <td nowrap>Branch Office</td>
+                <td nowrap>Name</td>
+                <td nowrap>Start Date</td>
+                <td nowrap>Finish Date</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              [var.strDetailContract]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td height="19">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+        </tr>
+      </table>
+
+           <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayContract]">
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/contact.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsEmployeeDocumentValidUntil]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>NIK</td>
+                <td nowrap>NIK Corporate</td>
+                <td nowrap>Name</td>
+                <td nowrap>Document Name</td>
+                <td nowrap>Valid Until</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              [var.strDetailDocuments]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td height="19">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+        </tr>
+      </table>
+
+    </td>
+<td valign="top">
+     <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayContract]">
+        <tr><td>&nbsp;</td></tr>
+         <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/about.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsReward]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>NIK</td>
+                <td nowrap>NIK Corporate</td>
+                <td nowrap>Name</td>
+                <td nowrap>Date</td>
+                <td nowrap>Reward</td>
+                <td nowrap>Amount</td>
+              </tr>
+              [var.strDetailReward]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td height="19">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+        </tr>
+      </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayContract]">
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/about.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsWarning]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>NIK</td>
+                <td nowrap>NIK Corporate</td>
+                <td nowrap>Name</td>
+                <td nowrap>Date</td>
+                <td nowrap>Warning</td>
+              </tr>
+              [var.strDetailWarning]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td height="19">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+<!------------------------------------------------------------------->
+
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan=2 >
+      <form name="formNews" id="formNews" method="POST">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td  align="left" class="pageHeaderTitle">
+              <table border="0" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td width="30"><img src="../images/icons/about.png" border="0" width="30"/></td>
+                  <td nowrap class="pageHeaderTitleText">[var.strWordsNews]</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td><div id="news">[var.strDetailNews]</div></td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
+<br>
+<!-- NewsLetter-->
+<!--
+<table width='100%' border='0' cellpadding='0' cellspacing='0'>
+  <tr>
+    <td colspan=2 >
+      <form name='formNews' id='formNews' method='POST'>
+        <table width='100%' border='0' cellpadding='0' cellspacing='0'>
+          <tr>
+            <td  align='left' class='pageHeaderTitle'>
+              <table border='0' cellspacing='0' cellpadding='2'>
+                <tr>
+                  <td width='30'><img src='../images/icons/about.png' border='0' width='30'/></td>
+                  <td nowrap class='pageHeaderTitleText'>Newsletter</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td>
+               <a href="http://patra-sk.com/public/pages/news-2013.aspx" style="margin-left:30px;">View</a>
+         </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
+-->
+<!--
+<br>
+<table width='100%' border='0' cellpadding='0' cellspacing='0'>
+  <tr>
+    <td colspan=2 >
+      <form name='formNews' id='formNews' method='POST'>
+        <table width='100%' border='0' cellpadding='0' cellspacing='0'>
+          <tr>
+            <td  align='left' class='pageHeaderTitle'>
+              <table border='0' cellspacing='0' cellpadding='2'>
+                <tr>
+                  <td width='30'><img src='../images/icons/about.png' border='0' width='30'/></td>
+                  <td nowrap class='pageHeaderTitleText'>Company Regulation</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+
+               <td><div id="regulation">[var.strRegulation]</div></td>
+
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
+-->
+<!--
+<br>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan=2 >
+      <form name="formKRA" id="formKRA" method="POST">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td  align="left" class="pageHeaderTitle">
+              <table border="0" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td width="30"><img src="../images/icons/businessman_preferences.png" border="0" width="30"/></td>
+                  <td nowrap class="pageHeaderTitleText">[var.strWordsEmployeeKRA]</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td><div id="kra">[var.strEmployeeKRA]</div></td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
+-->
+<br>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan=2 >
+      <form name="formCalendar" id="formCalendar" method="POST">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td  align="left" class="pageHeaderTitle">
+              <table border="0" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td width="30"><img src="../images/icons/calendar1.png" border="0" width="30"/></td>
+                  <td nowrap class="pageHeaderTitleText">[var.strWordsTimeTable]</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td>
+              <table  width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td align="left" width = "25%"><input type="button" name="btnPrev" value="<" onClick="javascript:goCalendar(-1, 'cal')"></td>
+                  <td align="center" width = "50%"><div style='text-align: center; font-size: 14pt' id="calTitle">[var.strMonthYear]</div></td>
+                  <td align="right" width = "50%"><input type="button" name="btnNext" value=">" onClick="javascript:goCalendar(+1, 'cal')"></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          [var.strHidden]
+          <tr>
+            <td><div id="cal">[var.strCalendar]</div></td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>

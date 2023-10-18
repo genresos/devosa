@@ -1,0 +1,438 @@
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="department_data.php"></script>
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ajax.js"></script>
+<script src="scripts/invosa.js"></script>
+<script type="text/javascript" src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  function validInput() {
+    hasil = validateForm(document.formData);
+    return hasil;
+  }//validInput
+
+
+  // menampilkan tampilan yang hilang
+  function moreInput(tipe) {
+    var x = parseFloat(eval("document.formData.numShow"+tipe+".value"));
+    var max = parseFloat(eval("document.formData.maxDetail"+tipe+".value"));
+    if (x < max) {
+      ylib_getObj("detailData"+tipe+"_"+x).style.display = document.all ? "block" : "table-row";
+      if(tipe == 0  || tipe == 1 || tipe == 2){
+        eval("document.formData.dataBreak"+tipe+"_"+x+".disabled = false");
+        eval("document.formData.dataDuration"+tipe+"_"+x+".disabled = false");
+        eval("document.formData.dataNote"+tipe+"_"+x+".disabled = false");
+        eval("document.formData.dataRoleGradeCode"+tipe+"_"+x+".disabled = false");
+        eval("document.formData.numShow"+tipe+".value++");
+      }
+    }
+  }//moreInput
+
+  // menampilkan tampilan transfer Status yang hilang
+  function moreTransferStatusInput() {
+    var x = parseFloat(eval("document.formData.numShow.value"));
+    var max = parseFloat(eval("document.formData.maxDetail.value"));
+    if (x < max) {
+      ylib_getObj("detailTransferStatus_"+x).style.display = document.all ? "block" : "table-row";
+      eval("document.formData.dataTransferStatusCode_"+x+".disabled = false");
+      eval("document.formData.dataTransferStatusRemark_"+x+".disabled = false");
+      eval("document.formData.numShow.value++");
+    }
+  }//moreInput
+
+  function autoComplete() {
+    var x = document.formData.numShowSpecial.value - 1;
+    eval("AC_targetElements=['dataEmployeeSpecial_"+x+"']");
+  }
+
+  function initPage_()
+  {
+    init();
+    autoComplete();
+  }
+
+</script>
+<body onload="initPage_()">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+    </tr>
+    <tr>
+      <td class="inputBox">
+        <form action="" method="post" name="formData" id="formData" onSubmit="return validInput()">
+          <table border="0" cellpadding="2" cellspacing="0">
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td colspan="3"><strong>[var.strWordsCompanyIdentity]</strong></td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td nowrap>[var.strWordsCompanyName]</td>
+              <td align="center">:</td>
+              <td nowrap> <input name="strCompanyName" type="text" id="strCompanyName" value="[var.strCompanyName]" size="60" maxlength="100">
+                <input name="oldCompanyName" type="hidden" id="oldCompanyName" value="[var.strCompanyName]">
+              </td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td nowrap>[var.strWordsCompanyCode]</td>
+              <td align="center">:</td>
+              <td nowrap> <input name="strCompanyCode" type="text" id="strCompanyCode" value="[var.strCompanyCode]" size="60" maxlength="10">
+                <input name="oldCompanyCode" type="hidden" id="oldCompanyCode" value="[var.strCompanyCode]">
+              </td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td nowrap>[var.strWordsCompanyBankAccountNo]</td>
+              <td align="center">:</td>
+              <td nowrap> <input name="strCompanyBankAccountNo" type="text" id="strCompanyBankAccountNo" value="[var.strCompanyBankAccountNo]" size="60">
+                <input name="oldCompanyBankAccountNo" type="hidden" id="oldCompanyBankAccountNo" value="[var.strCompanyBankAccountNo]">
+              </td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td colspan="3"><strong>[var.strWordsDailySetting]</strong></td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td nowrap>[var.strWordsStartTime]</td>
+              <td align="center">:</td>
+              <td nowrap> <input name="strStartTime" type="text" id="strStartTime" value="[var.strStartTime]" size="60" maxlength="10" class="time">
+                <input name="oldStartTime" type="hidden" id="oldStartTime" value="[var.oldStartTime]">
+              </td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td nowrap>[var.strWordsFinishTime]</td>
+              <td align="center">:</td>
+              <td nowrap> <input name="strFinishTime" type="text" id="strFinishTime" value="[var.strFinishTime]" size="60" maxlength="10" class="time">
+                <input name="oldFinishTime" type="hidden" id="oldFinishTime" value="[var.oldFinishTime]"></td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td nowrap>[var.strWordsFridayFinishTime]</td>
+              <td align="center">:</td>
+              <td nowrap> <input name="strFridayFinishTime" type="text" id="strFridayFinishTime" value="[var.strFridayFinishTime]" size="60" maxlength="10" class="time">
+                <input name="oldFridayFinishTime" type="hidden" id="oldFridayFinishTime" value="[var.oldFridayFinishTime]"></td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td nowrap>[var.strWordsSaturdayOff]&nbsp;</td>
+              <td align="center">:</td>
+              <td nowrap> <input name="strSaturday" type="checkbox" id="strSaturday" value="t" [var.strSaturday]>
+                <input name="oldSaturday" type="hidden" id="oldSaturday" value="[var.oldSaturday]"></td>
+            </tr>
+            <tr>
+              <td colspan="4">&nbsp;</td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td colspan="3"><strong>[var.strWordsBreakTime]</strong></td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td colspan="3" nowrap>
+                <table border="0" cellspacing="0" cellpadding="2">
+                  <tr class="inputBox">
+                    <td nowrap><strong>[var.strWordsDayType]</strong></td>
+                    <td nowrap>&nbsp;</td>
+                    <td nowrap><strong>[var.strWordsStartTime]</strong></td>
+                    <td nowrap><strong>[var.strWordsDur]</strong></td>
+                    <td nowrap><strong>[var.strWordsFinishTime]</strong></td>
+                    <td nowrap><strong>[var.strWordsNote]</strong></td>
+                    <td nowrap><strong>[var.strWordsRoleGradeCode]</strong></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" nowrap>[var.strWordsNormalDay]</td>
+                    <td><input name="dataID0_0" type="hidden" id="dataID0_0" value="[var.strNormalID0]">
+                      :</td>
+                    <td><input name="dataBreak0_0" type="text" id="dataBreak0_0" value="[var.strNormalBreak0]" size="10" maxlength="10" class="time"></td>
+                    <td><input name="dataDuration0_0" type="text" id="dataDuration0_0" value="[var.strNormalDuration0]" size="10" maxlength="10" class="numeric"></td>
+                    <td>&nbsp;[var.strNormalFinish0]</td>
+                    <td><input name="dataNote0_0" type="text" id="dataNote0_0" value="[var.strNormalNote0]" size="30" maxlength="30" class="string-empty"></td>
+                  </tr>
+                  [var.strBreakNormal]
+                  <tr>
+                    <td valign="top" nowrap>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>[<a href="javascript:moreInput(0)">more</a>]</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td valign="top" nowrap>[var.strWordsFriday]</td>
+                    <td>:
+                      <input name="dataID1_0" type="hidden" id="dataID1_0" value="[var.strFridayID0]"></td>
+                    <td><input name="dataBreak1_0" type="text" id="dataBreak1_0" value="[var.strFridayBreak0]" size="10" maxlength="10" class="time"></td>
+                    <td><input name="dataDuration1_0" type="text" id="dataDuration1_0" value="[var.strFridayDuration0]" size="10" maxlength="10" class="numeric"></td>
+                    <td>&nbsp;[var.strFridayFinish0]</td>
+                    <td><input name="dataNote1_0" type="text" id="dataNote1_0" value="[var.strFridayNote0]" size="30" maxlength="30" class="string-empty"></td>
+                  </tr>
+                  [var.strBreakFriday]
+                  <tr>
+                    <td valign="top" nowrap>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>[<a href="javascript:moreInput(1)">more</a>]</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td valign="top" nowrap>[var.strWordsHoliday]</td>
+                    <td>:
+                      <input name="dataID2_0" type="hidden" id="dataID2_0" value="[var.strHolidayID0]"></td>
+                    <td><input name="dataBreak2_0" type="text" id="dataBreak2_0" value="[var.strHolidayBreak0]" size="10" maxlength="10" class="time"></td>
+                    <td><input name="dataDuration2_0" type="text" id="dataDuration2_0" value="[var.strHolidayDuration0]" size="10" maxlength="10" class="numeric"></td>
+                    <td>&nbsp;[var.strHolidayFinish0]</td>
+                    <td><input name="dataNote2_0" type="text" value="[var.strHolidayNote0]" size="30" maxlength="50" class="string-empty"></td>
+                  </tr>
+                  [var.strBreakHoliday]
+                  <tr>
+                    <td valign="top" nowrap>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>[<a href="javascript:moreInput(2)">more</a>]</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+            <td nowrap>&nbsp;</td>
+            <td colspan="3"><strong>[var.strWordsSalaryTransferStatus]</strong></td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td colspan="3" nowrap>
+              <table border="0" cellspacing="0" cellpadding="2">
+                <tr class="inputBox">
+                  <td nowrap></td>
+                  <td nowrap><strong>[var.strWordsTransferStatusCode]</strong></td>
+                  <td nowrap><strong>[var.strWordsTransferStatusRemark]</strong></td>
+                </tr>
+                <tr>
+                  <td><input name="dataTransferStatusID_0" type="hidden" id="dataTransferStatus_0" value="[var.strTransferStatusID0]"></td>
+                  <td><input name="dataTransferStatusCode_0" type="text" id="dataTransferStatusCode_0" value="[var.strTransferStatusCode0]" size="20" maxlength="200"></td>
+                  <td><input name="dataTransferStatusRemark_0" type="text" id="dataTransferStatusRemark_0" value="[var.strTransferStatusRemark0]" size="50" maxlength="200"></td>
+                </tr>
+                [var.strTransferStatus]
+                <tr>
+                  <td>&nbsp;</td>
+                  <td valign="top" nowrap>[<a href="javascript:moreTransferStatusInput()">more</a>]</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td colspan="3"><strong>[var.strWordsLeave]</strong></td>
+            </tr>
+            <tr>
+              <td nowrap>&nbsp;</td>
+              <td nowrap>[var.strWordsLeaveMethod]</td>
+              <td align="center">:</td>
+              <td nowrap>
+                <input name="strLeaveMethod" type="radio" id="strLeaveMethod" value="0">[var.strWordsJoinDate]</input>
+            <input name="strLeaveMethod" type="radio" id="strLeaveMethod" value="1">[var.strWordsProrate]</input>
+          <input name="strLeaveMethod" type="radio" id="strLeaveMethod" value="2">[var.strWordsJoinDateCutoff]</input>
+        <input name="oldLeaveMethod" type="hidden" id="oldLeaveMethod" value="[var.oldLeaveMethod]">
+        <script>
+          var leaveMethod = document.getElementById("oldLeaveMethod").value;
+          if(leaveMethod == 0){
+            document.getElementsByName("strLeaveMethod")[0].checked = true;
+          }else if(leaveMethod == 1){
+            document.getElementsByName("strLeaveMethod")[1].checked = true;
+          }else if(leaveMethod == 2){
+            document.getElementsByName("strLeaveMethod")[2].checked = true;
+          }
+        </script>
+      </td>
+    </tr>
+    <tr>
+      <td nowrap>&nbsp;</td>
+      <td nowrap>[var.strWordsInitialLeaveQuota]</td>
+      <td align="center">:</td>
+      <td nowrap> <input name="strJCI" type="text" id="strJCI" value="[var.strJCI]" size="10" maxlength="10" class="numeric" > [var.strWordsDays]
+        <input name="oldJCI" type="hidden" id="oldJCI" value="[var.oldJCI]">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap>&nbsp;</td>
+      <td nowrap>[var.strWordsMaximumAdvanceLeave]</td>
+      <td align="center">:</td>
+      <td nowrap> <input name="strHCM" type="text" id="strHCM" value="[var.strHCM]" size="10" maxlength="10" class="numeric" > [var.strWordsDays]
+        <input name="oldHCM" type="hidden" id="oldHCM" value="[var.oldHCM]">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap>&nbsp;</td>
+      <td nowrap>[var.strWordsGrandLeavePeriod]</td>
+      <td align="center">:</td>
+      <td nowrap> <input name="strPCB" type="text" id="strPCB" value="[var.strPCB]" size="10" maxlength="10" class="numeric" > [var.strWordsYears]
+        <input name=" oldPCB" type="hidden" id="oldPCB" value="[var.oldPCB]">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap>&nbsp;</td>
+      <td nowrap>[var.strWordsGrandLeaveQuota]</td>
+      <td align="center">:</td>
+      <td nowrap> <input name="strJCB" type="text" id="strJCB" value="[var.strJCB]" size="10" maxlength="10" class="numeric" > [var.strWordsDays]
+        <input name="oldJCB" type="hidden" id="oldJCB" value="[var.oldJCB]">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap>&nbsp;</td>
+      <td nowrap>[var.strWordsProgressive]&nbsp;</td>
+      <td align="center">:</td>
+      <td nowrap> <input name="strProgressive" type="checkbox" id="strProgressive" value="t" [var.strProgressive]>
+        <input name="oldProgressive" type="hidden" id="oldProgressive" value="[var.oldProgressive]"></td>
+    </tr>
+    <tr>
+      <td nowrap>&nbsp;</td>
+      <td nowrap>[var.strWordsGrandLeaveAreValidFor] </td>
+      <td align="center">:</td>
+      <td nowrap> <input name="strMBCB" type="text" id="strMBCB" value="[var.strMBCB]" size="10" maxlength="10" class="numeric" > [var.strWordsMonths]
+        <input name="oldMBCB" type="hidden" id="oldMBCB" value="[var.oldMBCB]">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap>&nbsp;</td>
+      <td nowrap>[var.strWordsLeaveQuota]</td>
+      <td align="center">:</td>
+      <td nowrap> <input name="strJCN" type="text" id="strJCN" value="[var.strJCN]" size="10" maxlength="10" class="numeric" > [var.strWordsDays]
+        <input name="oldJCN" type="hidden" id="oldJCN" value="[var.oldJCN]">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap>&nbsp;</td>
+      <td nowrap>[var.strWordsLeaveAreValidFor] </td>
+      <td align="center">:</td>
+      <td nowrap> <input name="strMBCN" type="text" id="strMBCN" value="[var.strMBCN]" size="10" maxlength="10" class="numeric" > [var.strWordsMonths]
+        <input name="oldMBCN" type="hidden" id="oldMBCN" value="[var.oldMBCN]">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap>&nbsp;</td>
+    </tr>
+    <tr>
+      <td nowrap>&nbsp;</td>
+    </tr>
+    <tr>
+      <table border="0" cellpadding="2" cellspacing="0">
+        <td nowrap>&nbsp;</td>
+        <tr>
+          <td nowrap>&nbsp;</td>
+          <td colspan="6"><strong>[var.strWordsOvertime]</strong>
+          </td>
+        </tr>
+        <tr>
+          <td nowrap>&nbsp;</td>
+          <td nowrap>[var.strWordsMaximumMemberOnSPL]</td>
+          <td align="center">:</td>
+          <td nowrap>
+            <input name="strMaxOTMember" type="text" id="strMaxOTMember" value="[var.strMaxOTMember]" size="10" maxlength="10" class="numeric">
+            <input name="oldMaxOTMember" type="hidden" id="oldMaxOTMember" value="[var.oldMaxOTMember]">
+          </td>
+        </tr>
+    <tr>
+      <td align="center">&nbsp; </td>
+      <td align="center">&nbsp;</td>
+      <td align="center">&nbsp;</td>
+      <td align="center">&nbsp;</td>
+    </tr>
+
+<!--
+    <tr>
+      <td nowrap>&nbsp;</td>
+      <td colspan="3"><strong>[var.strWordsAttendanceImportSetting]</strong></td>
+    </tr>
+    <tr>
+      <td nowrap>&nbsp;</td>
+      <td nowrap>[var.strWordsFilePath]</td>
+      <td align="center">:</td>
+      <td nowrap> <input name="strAttendanceFilePath" type="text" id="strAttendanceFilePath" value="[var.strAttendanceFilePath]" size="20"  class="string" >
+        <input name="oldAttendanceFilePath" type="hidden" id="oldAttendanceFilePath" value="[var.oldAttendanceFilePath]">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap>&nbsp;</td>
+      <td nowrap>[var.strWordsFileType]</td>
+      <td align="center">:</td>
+      <td nowrap> <input name="strAttendanceFileType" type="text" id="strAttendanceFileType" value="[var.strAttendanceFileType]" size="20"  class="string" >
+        <input name="oldAttendanceFileType" type="hidden" id="oldAttendanceFileType" value="[var.oldAttendanceFileType]">
+      </td>
+    </tr>
+-->
+    <tr>
+      <td align="center">&nbsp; </td>
+      <td align="center">&nbsp;</td>
+      <td align="center">&nbsp;</td>
+      <td> <input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]"></td>
+    </tr>
+  </table>
+  </tr>
+</table>
+</form>
+</td>
+</tr>
+</body>
+<!--
+<tr>
+<td nowrap>&nbsp;</td>
+<td nowrap>[var.strWordsSlipPersonnel]</td>
+<td align="center">:</td>
+<td nowrap> <input name="strSlipPersonnel" type="text" id="strSlipPersonnel" value="[var.strSlipPersonnel]" size="60">
+<input name="oldSlipPersonnel" type="hidden" id="oldSlipPersonnel" value="[var.strSlipPersonnel]">
+</td>
+</tr>
+<tr>
+<td nowrap>&nbsp;</td>
+<td nowrap>[var.strWordsSlipFinance]</td>
+<td align="center">:</td>
+<td nowrap> <input name="strSlipFinance" type="text" id="strSlipFinance" value="[var.strSlipFinance]" size="60">
+<input name="oldSlipFinance" type="hidden" id="oldSlipFinance" value="[var.strSlipFinance]">
+</td>
+</tr>
+-->

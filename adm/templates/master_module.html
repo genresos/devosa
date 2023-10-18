@@ -1,0 +1,68 @@
+<script type="text/javascript">
+  //this function javascript below use prototype.js (if you use datagrid class you don't have to include this script//
+  var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('dataFolder').value = "";
+        $('dataName').value = "";
+        $('dataVisible').checked = false;
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $('detailID' + idx).value;
+        $('dataName').value = $F('detailName' + idx);
+        $('dataFolder').value = $F('detailFolder' + idx);
+        var visible = $F('detailVisible' + idx);
+        $('dataVisible').checked = (visible == 't') ;
+      }
+      $('dataName').focus();
+      $('dataName').select();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('Are you sure to delete this selected data?');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('Do you want to save this entry?');
+    }
+  }
+</script>
+<table class="content" width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td align="left" class="pageHeaderTitle" height="25">
+      <table border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="blank"><img src="[var.pageIcon]" border="0" /></td>
+          <td class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td height="10"><strong>[var.strWordModuleList]</strong></td>
+  </tr>
+  <tr>
+    <td valign="top" height="100%">
+[var.DataGrid;protect=no;htmlconv=no]
+    </td>
+  </tr>
+</table>

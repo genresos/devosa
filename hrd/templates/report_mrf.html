@@ -1,0 +1,87 @@
+<script type="text/javascript" src="../js/invosa.js"></script>
+<script type="text/javascript">
+  function openWindowDialog(url) 
+  {
+    var winName = "_blank";
+    var width=800;
+    var height=500;
+    var left = (screen.width - width) / 2;
+    var top = (screen.height - height) / 2;
+    var foo = window.open(url,winName,"menubar=no,status=no,resizable=yes,scrollbars=yes,modal=yes,top="+top+",left="+left+",width="+width+",height="+height+"");
+    foo.focus();
+  }
+  
+  // fungsi untuk validasi entry
+  function validInput()
+  {
+    
+    if (document.getElementById('data_date_from').value == "") {
+      alert("Empty Date From!");
+      document.getElementById('data_date_from').focus();
+      return false;
+    }
+    
+    if (document.getElementById('data_date_thru').value == "") {
+      alert("Empty Date To!");
+      document.getElementById('data_date_thru').focus();
+      return false;
+    }
+    
+    if (dateCompare(document.getElementById('data_date_from').value, document.getElementById('data_date_thru').value) > 0)
+    {
+      alert("Error : date from bigger than date to");
+      document.getElementById('data_date_from').focus();
+      return false;
+    }
+    
+    return true;
+  }
+  
+  function printList()
+  {
+    document.formInput.target = '_blank';
+    return validInput();
+  }
+  
+  function doSearch()
+  {
+    document.formInput.target = '';
+  }
+
+  function exportExcel()
+  {
+    document.formInput.target = '';
+  }
+</script>
+<table class="content" width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="blank"><img src="[var.pageIcon]" border="0" /></td>
+          <td class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>  
+  <tr>
+    <td height=5></td>
+  </tr>
+  <tr>
+    <td valign="top">
+[var.formInput;protect=no; htmlconv=no]
+    </td>
+  </tr>
+  <tr>
+    <td height=10></td>
+  </tr>
+  <tr>
+    <td valign="top">
+[var.strGridTitle;protect=no; htmlconv=no]
+[var.DataGrid;protect=no; htmlconv=no]
+    </td>
+  </tr>
+  <tr>
+    <td height=30>&nbsp;</td>
+  </tr>
+</table>

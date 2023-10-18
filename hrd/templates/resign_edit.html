@@ -1,0 +1,374 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+
+  function clearForm() {
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDateFrom.focus();
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk menghitung total
+  function getTotalRight() {
+    var total = 0;
+    
+    if (!isNaN(document.formInput.dataPesangon.value) && document.formInput.dataPesangon.value != "")
+      total += parseFloat(document.formInput.dataPesangon.value);
+    if (!isNaN(document.formInput.dataOtherRight.value) && document.formInput.dataOtherRight.value != "")
+      total += parseFloat(document.formInput.dataOtherRight.value);
+
+    document.formInput.dataTotalRight.value = total;
+  }
+
+  // fungsi untuk menghitung total kewajiabn
+  function getTotalObligation() {
+    var total = 0;
+    if (!isNaN(document.formInput.dataLoan.value) && document.formInput.dataLoan.value != "")
+      total += parseFloat(document.formInput.dataLoan.value);
+    if (!isNaN(document.formInput.dataOtherLoan.value) && document.formInput.dataOtherLoan.value != "")
+      total += parseFloat(document.formInput.dataOtherLoan.value);
+    if (!isNaN(document.formInput.dataOtherObligation.value) && document.formInput.dataOtherObligation.value != "")
+      total += parseFloat(document.formInput.dataOtherObligation.value);
+
+    document.formInput.dataTotalObligation.value = total;
+  }
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDate.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+    Calendar.setup({ inputField:"dataResignDate", button:"btnResignDate" });
+    init();
+    onCodeBlur();
+
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strWordsEmployeeResignProposal]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30">&nbsp;</td>
+          <td nowrap>&nbsp;<strong>[var.strWordsResignProposalEntry] | <a href="resign_list.php">
+            [var.strWordsResignProposalList]</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop">[var.strWordsINPUTDATA]</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table width="100%" border="0" cellpadding="2" cellspacing="0">
+          <tr class="inputBoxBottomLine">
+            <td valign="top" class="inputBoxBottomLine">&nbsp;</td>
+            <td valign="top" class="inputBoxBottomLine">
+              <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td width="120px">&nbsp;</td>
+                  <td width="" align="center">&nbsp;</td>
+                  <td width="">&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsProposalDate]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDate]&nbsp; <input name="btnDate" type="button" id="btnDate" value=".."></td>
+                </tr>
+<!--
+				<tr valign="top">
+                  <td nowrap><strong>[var.strWordsProposalType]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputType]&nbsp;</td>
+                </tr>
+-->
+                <tr valign="top">
+                  <td nowrap><strong> [var.strWordsEmployeeID]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployee]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td><strong id="employee_name"></strong>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsResignDate]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputResignDate]&nbsp; <input name="btnResignDate" type="button" id="btnResignDate" value="..">
+                    <input name="btnGet" type="submit" id="btnGet" value="[var.strWordsGetInfo]"></td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr class="tableHeader">
+            <td>&nbsp;</td>
+            <td><strong>[var.strWordsEmployeeInformation]</strong></td>
+          </tr>
+          <tr class="inputBoxBottomLine" [var.strDisplayDetail]>
+            <td valign="top" class="inputBoxBottomLine">&nbsp;</td>
+            <td valign="top" class="inputBoxBottomLine">
+              <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td width="120px">&nbsp;</td>
+                  <td width="" align="center">&nbsp;</td>
+                  <td width="">&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsJoinDate]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployeeJoin]&nbsp;</td>
+                </tr>  
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsEmployeeStatus]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployeeStatus]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsDueDate]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDueDate]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsCompany]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputCompany]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsDivision]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDivision]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsDepartment]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDepartment]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsFunctional]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputFunctional]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsBranchPenugasan]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputBranchPenugasan]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsSalary]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployeeSalary] &nbsp;
+                    {Basic Salary + Transport + Housing}
+                  </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsLeaveRemain]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployeeLeave]&nbsp;</td>
+                </tr>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsAttendance]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputAttendance] of [var.strInputWorkingDays]</td>
+                </tr>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td nowrap>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr class="tableHeader">
+            <td>&nbsp;</td>
+            <td><strong>[var.strWordsEmployeeRights]</strong></td>
+          </tr>
+          <tr id="inputSalary" [var.strDisplayDetail]>
+            <td valign="top" class="inputBoxBottomLine">&nbsp;</td>
+            <td valign="top" class="inputBoxBottomLine">
+              <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+                <!--<tr valign="top">
+                  <td width="120px" nowrap>[var.strWordsSalary]</td>
+                  <td width="" align="center">:</td>
+                  <td width="" nowrap>[var.strInputSalary]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td nowrap="">[var.strWordsMealAllowance]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputMeal]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>[var.strWordsConjuncture]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputConjuncture]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td nowrap="">[var.strWordsLeaveRemain]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputLeaveRemain] &nbsp;
+                  { (n/12) * [var.strWordsSalary] }
+                  </td>
+                </tr>
+                <tr>
+                  <td nowrap="">[var.strWordsLeaveAllowance]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputLeave]&nbsp;</td>
+                </tr>-->
+                <tr>
+                  <td nowrap="">[var.strWordsSeparationPay]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputPesangon] &nbsp;
+                  {n * [var.strWordsSalary]}
+                  </td>
+                </tr>
+                <tr>
+                  <td nowrap="">[var.strWordsOthers]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputOtherRight]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td nowrap=""><strong>[var.strWordsTotalRight]</strong></td>
+                  <td align="center"><strong>:</strong></td>
+                  <td><input type="text" name="dataTotalRight" id="dataTotalRight" value="[var.strInputTotalRight]" style="width:200px" readonly class='numeric'>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>[var.strWordsRightNote]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputRightNote]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr class="tableHeader">
+            <td>&nbsp;</td>
+            <td><strong>[var.strWordsEmployeeObligation]</strong></td>
+          </tr>
+          <tr id="inputSalary" [var.strDisplayDetail]>
+            <td valign="top" class="inputBoxBottomLine">&nbsp;</td>
+            <td valign="top" class="inputBoxBottomLine">
+              <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr valign="top">
+                  <td width="120px" nowrap>[var.strWordsOutstandingLoan]</td>
+                  <td width="" align="center">:</td>
+                  <td width="" nowrap>[var.strInputLoan]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>[var.strWordsOtherLoan]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputOtherLoan]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td nowrap="">[var.strWordsOthers]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputOtherObligation]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td nowrap=""><strong>[var.strWordsTotalObligation]</strong></td>
+                  <td align="center"><strong>:</strong></td>
+                  <td><input type="text" name="dataTotalObligation" id="dataTotalObligation" value="[var.strInputTotalObligation]" style="width:200px" readonly class='numeric'>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>[var.strWordsNote]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputObligationNote]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td align="center" valign="top">&nbsp;</td>
+            <td align="center" valign="top"><table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr valign="top">
+                  <td width="120px" nowrap><strong>[var.strWordsECStatus]</strong></td>
+                  <td width="" align="center">:</td>
+                  <td width="" nowrap>[var.strInputECStatus]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td width="120px" nowrap><strong>[var.strWordsNoteReason]</strong></td>
+                  <td width="" align="center">:</td>
+                  <td width="" nowrap>[var.strInputNote]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsStatus]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputStatus]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td><strong id="employee_name"></strong><br><input name="btnSave" type="submit" id="btnSave2" value="[var.strWordsSave]">
+                    &nbsp; <input name="btnNew" type="button" id="btnNew" value="[var.strWordsClearForm]" onClick="location.href = 'resign_edit.php';"> 
+<!--                    [var.strBtnPrint]-->
+                    <input name="dataID" type="hidden" id="dataID2" value="[var.strDataID]">
+                  </td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td align="center" valign="top">&nbsp;</td>
+            <td align="center" valign="top">&nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

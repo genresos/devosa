@@ -1,0 +1,127 @@
+<script type="text/javascript">
+	var myClient = {
+    editData : function(params)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      arrParam  = params.split("|");
+      idx = arrParam[0];
+      strSet = arrParam[1];
+      intMaxSet = arrParam[2];
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)      {
+        //reset data
+        $('position_code').removeAttribute('readOnly');
+        $('dataID').value = "";
+        $('position_code').value = "";
+        $('position_name').value = "";
+        $('position_group').selectedIndex = 0;
+        $('note').value = "";
+        $('get_ot').selectedIndex = 0;
+        $('get_auto_ot').checked = false;
+        $('approver_id').value = "";
+        $('is_hourly_basis').checked = false;
+        $('workday_hourly_rate').value = "";
+        $('holiday_hourly_rate').value = "";
+				$('is_all_day').checked = false;
+        $('is_sat_in').checked = false;
+        $('is_late_frequency').checked = false;
+        $('max_overtime_allowance').value = "";
+        $('min_late_minutes').value = "";
+        $('frequency_coefficient').value = "";
+
+        $('is_overtime_base_umk').value = "";
+        $('overtime_base').value = "";
+        $('is_bpjs_tk_base_umk').value = "";
+        $('bpjs_tk_base').value = "";
+        $('is_bpjs_ks_base_umk').value = "";
+        $('bpjs_ks_base').value = "";
+
+        for (i=1; i<= intMaxSet; i=i+1)
+        {
+          $(strSet + i).value = 0;
+        }
+
+      }
+      else if (idx != '')
+      {
+      	$('position_code').readOnly = true;
+        $('dataID').value = $F("detailID" + idx);
+        $('position_code').value = $F("detailCode" + idx);
+        $('position_name').value = $F("detailName" + idx);
+        $('position_group').selectedIndex = 0;
+        $('position_group').value = $F("detailPositionGroup" + idx);
+        $('note').value = $F("detailNote" + idx);
+        $('get_ot').value = $F("detailGetOvertime" + idx);
+        $('get_auto_ot').checked = ($F("detailGetAutoOvertime" + idx) == 't');
+        $('is_hourly_basis').checked = ($F("detailIsHourlyBasis" + idx) == 't');
+        $('workday_hourly_rate').value = $F("detailWorkdayHourlyRate" + idx);
+        $('holiday_hourly_rate').value = $F("detailHolidayHourlyRate" + idx);
+				$('is_all_day').checked = ($F("detailIsAllDay" + idx) == 't');
+        $('is_sat_in').checked = ($F("detailIsSatIn" + idx) == 't');
+        $('is_late_frequency').checked = ($F("detailIsLateFrequency" + idx) == 't');
+        $('max_overtime_allowance').value = $F("detailMaxOvertimeAllowance" + idx);
+        $('min_late_minutes').value = $F("detailMinLateFrequency" + idx);
+        $('frequency_coefficient').value = $F("detailCoefficientLateFrequency" + idx);
+
+        $('is_overtime_base_umk').checked = ($F("detailIsOvertimeBaseByUMK" + idx) == 't');
+        $('overtime_base').value = $F("detailOvertimeBase" + idx);
+        $('is_bpjs_tk_base_umk').checked = ($F("detailIsBPJSKetenagakerjaanBaseByUMK" + idx) == 't');
+        $('bpjs_tk_base').value = $F("detailBPJSKetenagakerjaanBase" + idx);
+        $('is_bpjs_ks_base_umk').checked = ($F("detailIsBPJSKesehatanBaseByUMK" + idx) == 't');
+        $('bpjs_ks_base').value = $F("detailBPJSKesehatanBase" + idx);
+
+        for (i=1; i<= intMaxSet; i=i+1)
+        {
+          if ($F("detailAllowance" + i + "_" + idx) == "")
+            $(strSet + i).value = 0;
+          else
+            $(strSet + i).value = $F("detailAllowance" + i + "_" + idx);
+        }
+      }
+      $('position_code').focus();
+      $('position_code').select();
+      $('approver_id').value = $F("detailApproverID" + idx);
+
+    },
+
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+
+
+  }
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td height="5"></td>
+  </tr>
+  <tr>
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr>
+    <td height="5"></td>
+  </tr>
+  <tr>
+    <td valign="top" height="100%">
+      [var.DataGrid;protect=no;htmlconv=no]
+   </td>
+  </tr>
+</table>

@@ -1,0 +1,106 @@
+<script type="text/javascript" src="./scripts/ajax.js"></script>
+<script type="text/javascript">
+  var submitCount=0;	
+
+  function showDetail(man, div, dept, sect, subsect) 
+  {
+    if (submitCount!=0) return;
+    submitCount++;
+    $('management_code').value = man;
+    $('division_code').value = div;
+    $('department_code').value = dept;
+    $('section_code').value = sect;
+    $('sub_section_code').value = subsect;
+    queryString = "ajax=1&management_code=" + man + "&division_code=" + div + "&department_code=" + dept + "&section_code=" + sect + "&sub_section_code=" + subsect
+    new Ajax.Request("data_department_tree.php",
+      { method:'get',
+        parameters: queryString,
+        onComplete: function(transport, json)
+        {
+          //alert(transport.responseText );
+          if ((transport.responseText || '') == '') return false;
+          
+          submitCount = 0;
+          $('dataGridContainer').update (transport.responseText);
+          location.href = "#top";
+        },
+        onLoading: function()
+        {
+          if (submitCount != 0)
+            $('dataGridContainer').update ("<img src='../images/loading_bar.gif' />");
+
+        },
+        onFailure: function()
+        {
+          if (submitCount != 0)
+            $('dataGridContainer').update ("Failed to get data!");
+          submitCount = 0;
+        }
+      });
+    
+  }
+  
+	function dataPrint() {
+		url = "data_department_tree.php?btnPrint=Print";
+		window.open(url);
+	}//dataPrint
+</script>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strWordsDepartmentData]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30">&nbsp;</td>
+          <td nowrap>&nbsp;<strong><a href="data_department.php"><span class="pageHeaderTitleText">[var.strWordsInputData]</a> |
+            <span class="pageHeaderTitleText">[var.strWordsDepartmentList] </strong></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr>
+    <td><strong><span class="pageHeaderTitleText">[var.strPageTitle]</span></strong></td>
+  </tr>
+  <tr>
+    <td>
+      <table border="0" width="100%" height="100%" cellpadding="1">
+        <tr valign="top">
+          <td style="width:300px; border-right:1px dotted black">
+[var.dataTreeView;htmlconv=no;protect=no]
+          </td>
+          <td style="padding-left:20px">
+            <div [var.strClass] align="center">[var.strMessages]</div>
+<form name="formData" id="formData" method="post" action="data_department_tree.php" >
+<a name="topgrid"></a>
+            <div id="dataGridContainer">
+[var.dataGrid;htmlconv=no;protect=no]
+            </div>
+  <input type="hidden" name="management_code" id="management_code" value="[var.strManagementCode]">
+  <input type="hidden" name="division_code" id="division_code" value="[var.strDivisionCode]">
+  <input type="hidden" name="department_code" id="department_code" value="[var.strDepartmentCode]">
+  <input type="hidden" name="section_code" id="section_code" value="[var.strSectionCode]">
+  <input type="hidden" name="sub_section_code" id="sub_section_code" value="[var.strSubSectionCode]">
+</form>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <input name="btnPrint" type="button" id="btnPrint" value="[var.strWordsPrint]" onClick="dataPrint()">
+    </td>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
+</table>

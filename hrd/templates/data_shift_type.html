@@ -1,0 +1,370 @@
+<script type="text/javascript" src="../scripts/ajax.js"></script>
+<script>
+  <!--
+  function resetInput() {
+     location.href = "data_shift_type.php";
+  }//resetInput
+function resetInput2() 
+{
+  document.formInput2.dataDays.value = "7";
+  genShift(7);
+  document.formInput2.dataDays.focus();
+}//resetInput2
+  // fungsi untuk menyiapkan data diedit
+  function editData(index) {
+    if (index != "") {
+      document.formInput.dataCode.value = eval("document.formData.detailCode" + index + ".value");
+      document.formInput.dataStart.value = eval("document.formData.detailStart" + index + ".value");
+      document.formInput.dataFinish.value = eval("document.formData.detailFinish" + index + ".value");
+      document.formInput.dataAddOT.value = eval("document.formData.detailAdditionalOT" + index + ".value");
+      //document.formInput.dataBreak.value = eval("document.formData.detailBreak" + index + ".value");
+      document.formInput.dataNote.value = eval("document.formData.detailNote" + index + ".value");
+      document.formInput.dataShiftAllowance.value = eval("document.formData.detailShiftAllowance" + index + ".value");
+      
+      bolChecked = (eval("document.formData.detailShiftOff" + index + ".value") == 't');
+      document.formInput.dataStart.disabled = bolChecked;
+      document.formInput.dataFinish.disabled = bolChecked;
+      document.formInput.dataShiftOff.checked = bolChecked;
+
+      bolChecked = (eval("document.formData.detailIsShift" + index + ".value") == 't');
+      document.formInput.dataIsShift.checked = bolChecked;
+
+      document.formInput.dataID.value = eval("document.formData.chkID" + index + ".value");
+      document.formInput.dataCode.focus();
+      document.formInput.dataCode.select();
+    }
+  }//editData
+  function restoreData(str)
+  {
+     document.formInput.dataAllowanceStaff.value = eval("document.formData.detailAllowanceStaff" + index + ".value");
+     document.formInput.dataAllowanceMagang.value = eval("document.formData.detailAllowanceMagang" + index + ".value");
+  }
+
+  
+// fungsi untuk otomatis mengisi/menyesuaikan box konfigurasi roster
+function writeDefault(obj,val) 
+{
+  if (obj.value == "")
+  {
+    obj.value = val;
+    obj.style.color = "grey";
+  }
+  else
+  {
+    obj.value = obj.value.toUpperCase();
+  }
+}//writeDefault
+
+// fungsi untuk mengisi/menyesuaikan box konfigurasi roster
+function clearThis(obj) 
+{
+  if (obj.style.color != "black")
+  {
+    obj.value = "";
+    obj.style.color = "black";
+  }
+}//clearThis
+
+// fungsi untuk generate text box sebanyak jumlah hari
+function genShift(numDays) 
+{
+    if (numDays > 100) numDays = 100;
+    strShift = "";
+  for (i = 1; i <= numDays; i++)
+  {
+     strShift = strShift + "<input style='color:grey' value='" + i + "' id='shift_" + i + "' type='text' name='shift_" + i + "' size=6 onFocus='clearThis(this)' onBlur='writeDefault(this," + i + ")' >";
+  }
+    document.getElementById("shifts").innerHTML = strShift;
+} //genShift
+
+
+  // fungsi untuk disable field2 yang 
+  function setOff(offVal) 
+  {
+     /* Modify for additional overtime, leave dataStart and dataFinish enable */
+     /* document.formInput.dataStart.value = "00:00";
+     document.formInput.dataStart.disabled = offVal;
+     document.formInput.dataFinish.value =  "00:00";
+     document.formInput.dataFinish.disabled = offVal;*/
+  } //setOff
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+    if (document.formInput.dataCode.value == "") {
+      alert("Empty Code");
+      document.formInput.dataCode.value
+      return false;
+    }
+	if (document.formInput.dataAddOT.value == "") {
+      alert("Empty Additional OT");
+      document.formInput.dataAddOT.value
+      return false;
+    }
+	if (document.formInput.dataShiftAllowance.value == "") {
+      alert("Empty Shift Allowance");
+      document.formInput.dataShiftAllowance.value
+      return false;
+    }
+    return true;
+  }//validInput
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+// fungsi untuk mengecek atau menguncheck checkbox
+function checkAll2() 
+{
+  var intData = document.formData2.totalData2.value;
+  var isChecked = document.formData2.chkAll2.checked;
+  
+  for (i = 1; i <= intData; i++) 
+  {
+    if (isChecked) 
+    {
+      eval("document.formData2.chkID2" + i + ".checked = true");
+    } 
+    else 
+    {
+      eval("document.formData2.chkID2" + i + ".checked = false");
+    }
+  }
+}//checkAll2
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataCode.focus();
+      genShift(7)
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan=3 align="left" class="pageHeaderTitle"> 
+      <table border="0" cellspacing="0" cellpadding="2" >
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30"/></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td  colspan=3 align="left"> 
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td><strong>
+            [var.strWordsScheduleType] | 
+            <a href="shift_schedule.php">[var.strWordsWorkSchedule]</a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+ <tr> 
+    <td class="inputTop">[var.strWordsINPUTDATA]</td>
+    <td>&nbsp;</td>
+    <td class="inputTop">[var.strWordsScheduleForm]</td>
+  </tr>
+  <tr> 
+    <td class="inputBox" valign="top"> 
+      <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table width=100%  border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr> 
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td width=5>&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="15%" nowrap>&nbsp;[var.strWordsShiftCode]</td>
+            <td width="5%">:</td>
+            <td width="80%"><input name="dataCode" type="text" id="dataCode" size="50" maxlength="20">&nbsp;<font color="red">*</font></td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsStartTime]</td>
+            <td>:</td>
+            <td><input name="dataStart" type="text" id="dataStart" value="00:00" size="10" maxlength="5">
+              (hh:mm)&nbsp;<font color="red">*</font></td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsFinishTime]</td>
+            <td>:</td>
+            <td><input name="dataFinish" type="text" id="dataFinish" value="00:00" size="10" maxlength="5">
+              (hh:mm)&nbsp;<font color="red">*</font></td>
+          </tr>
+          <tr>
+            <td nowrap> &nbsp;[var.strWordsAddOvertime]</td>
+            <td>:</td>
+            <td><input name="dataAddOT" type="text"  id="dataAddOT" size="10" maxlength="5"> &nbsp;[var.strWordsInMinutes]<font color="red">*</font></td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;[var.strWordsShift]</td>
+            <td>:</td>
+            <td><input name="dataIsShift" type="checkBox" id="dataShift" checked "></td>
+          </tr>
+
+          <tr>
+            <td height="21" nowrap> &nbsp;[var.strWordsOff]</td>
+            <td>:</td>
+            <td><input name="dataShiftOff" type="checkBox" id="dataShiftOff"  onClick="setOff(this.checked)"></td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;[var.strWordsNote]</td>
+            <td>:</td>
+            <td><input name="dataNote" type="text" id="dataNote" size="50" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;[var.strWordsShiftAllowance]</td>
+            <td>:</td>
+            <td><input name="dataShiftAllowance" type="text" id="dataShiftAllowance" size="50" maxlength="50"><font color="red">*</font></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]">
+              <input name="dataID" type="hidden" id="dataID">
+              <input name="dataFlag" type="hidden" id="dataFlag" value=2>
+              <input name="btnNew" type="button" id="btnNew" value="[var.strWordsAddNew]" onClick="resetInput();"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  <td width=1%>&nbsp;</td>
+  <td width=35% class="inputBox" valign="top">
+    <form action="" method="post" name="formInput2" id="formInput2" onSubmit="return validInput2();">
+        <table border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr> 
+            <td width=2> &nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        <tr> 
+            <td>&nbsp;</td>
+            <td width=50 nowrap>[var.strWordsDays]</td>
+            <td width=10 >:</td>
+            <td>
+              <input name="dataDays" type="text" value="7" type="numeric" id="dataDays" size="5" maxlength="3" onKeyup="genShift(this.value)" onFocus="clearThis(this)">
+            </td>
+        </tr>
+        <tr> 
+            <td width=2> &nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr> 
+            <td>&nbsp;</td>
+            <td colspan=3 style="padding-top:5; padding-bottom:5" id="shifts" name="shifts">&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td colspan=3>
+              <input name="btnSave2" type="submit" id="btnSave2" value="[var.strWordsSave]"> 
+              <input name="dataID2" type="hidden" id="dataID2"> 
+              <input name="dataFlag" type="hidden" id="dataFlag" value=2> 
+              <input name="btnNew2" type="button" id="btnNew2" value="[var.strWordsAddNew]" onClick="resetInput2();">
+            </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td colspan=3>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop">[var.strWordsLISTOFSHIFTTYPE]</td>
+  <td>&nbsp;</td>
+   <td class="listTop">[var.strWordsLISTOFSHIFTPATTERN]</td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <form action="" method="post" name="formData" id="formData">
+        <table width="100%" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          <tr class="tableHeader">
+            <td  width="5">&nbsp;</td>
+            <td  nowrap class="tableHeader"> [var.strWordsCODE]</td>
+            <td  align="center" nowrap class="tableHeader">[var.strWordsSTARTTIME]</td>
+            <td  align="center" nowrap class="tableHeader">[var.strWordsFINISHTIME]</td>
+            <td  align="center" nowrap class="tableHeader">[var.strWordsAddOvertime]</td>
+            <td  align="center" nowrap class="tableHeader">[var.strWordsShift]</td>
+            <td  align="center" nowrap class="tableHeader">[var.strWordsOff]</td>
+            <td  align="center" nowrap class="tableHeader">[var.strWordsNote]</td>
+            <td  align="center" nowrap class="tableHeader">[var.strWordsShiftAllowance]</td>
+            <!-- <td nowrap class="tableHeader">NOTE</td> -->
+            <td   width="19">&nbsp;</td>
+          </tr>
+
+          [var.strDataDetail]
+          <tr> 
+            <td>
+              <input name="chkAll" type="checkbox" id="chkAll" value="[var.strWordscheckbox]" onClick="checkAll();">
+            </td>
+            <td colspan="10">
+              <input name="btnDelete" type="submit" id="btnDelete" value="[var.strWordsDelete]" onClick="return confirmDelete();"> 
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+            </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+    <td width=1%>&nbsp;</td>
+    <td valign=top>
+      <form action="" method="post" name="formData2" id="formData2">
+        <table width="100%" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          <tr class="tableHeader"> 
+            <td width="5%"  nowrap >&nbsp;</td>
+            <td class="tableHeader">[var.strWordsRoster]</td>
+          </tr>
+          [var.strDataDetail2] 
+          <tr> 
+            <td>
+              <input name="chkAll2" type="checkbox" id="chkAll2" value="[var.strWordscheckbox]" onClick="checkAll2();">
+            </td>
+            <td colspan="2">
+              <input name="btnDelete2" type="submit" id="btnDelete2" value="[var.strWordsDelete]" onClick="return confirmDelete();"> 
+              <input name="totalData2" type="hidden" id="totalData2" value="[var.intTotalData2]">
+            </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+
+
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+</table>

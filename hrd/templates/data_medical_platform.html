@@ -1,0 +1,90 @@
+<script>
+	<!--
+	// fungsi memeriksa validasi input
+	function validInput() {
+		result = validateForm(document.formData);
+		return result;
+	} //validInput
+
+	-->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30">
+          <td nowrap><strong>
+            <a href="data_medical_type.php">[var.strWordsTreatmentTypeSetting]</a> |
+            [var.strWordsQuotaSetting] |
+            <a href="medical_additional_quota.php">[var.strWordsExtendedQuota]</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+   <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+  <form action="" method="post" name="formData" id="formData" onSubmit="return validInput();">
+  <tr>
+    <td>
+        <table border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td rowspan=2>&nbsp</td>
+            <td rowspan=2 nowrap>[var.strWordsFamilyStatus]</td>
+            <td [var.strColspan]>[var.strWordsPlatformPercentage]</td>
+             </tr>
+          [var.strDataDetail]
+        </table>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+  <form action="" method="post" name="formData" id="formData" onSubmit="return validInput();">
+  <tr>
+    <td>
+        <table border="0" cellpadding="1" cellspacing="0" class="gridTable">
+
+          [var.strDataSecondary]
+        </table>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td>
+        <table width = 100% border=0>
+          <tr>
+            <td nowrap>[var.strHidden]&nbsp;&nbsp; [var.strButton]
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+              <input name="totalDataSecondary" type="hidden" id="totalDataSecondary" value="[var.intTotalDataSecondary]">
+							<input name="totalDataSecondaryAdd" type="hidden" id="totalDataSecondaryAdd" value="[var.intTotalDataSecondaryAdd]"> 
+            <td align=center>&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+  </form>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+</table>

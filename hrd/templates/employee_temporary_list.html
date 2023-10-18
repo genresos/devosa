@@ -1,0 +1,98 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+            <a href="employee_temporary_edit.php">[var.strWordsDataEntry]</a> | 
+            [var.strWordsEmployeeTemporaryDataList]</strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td valign="top">
+      [var.formFilter;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+      [var.DataGrid;protect=no;htmlconv=no]
+    </td>
+  </tr>
+
+</table>
+	<br><strong>Legend: </strong>
+      <table border=0 cellpadding=0 cellspacing=2>
+        <tr>
+          <td width=20 height=20 class='bgNewData' style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsNew]</td>
+          <td width="100">&nbsp;</td>
+          <td width=20 height=20 class='bgCheckedData' style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsChecked]</td>
+          <td width="100">&nbsp;</td>
+          <td width=20 height=20 class='bgDenied' style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsDenied]</td>
+        </tr>
+        <tr>
+          <td width=20 height=20 class='bgApprovedData' style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsApproved]</td>
+          <td width="100">&nbsp;</td>
+          <td width=20 height=20 style="border: 1px solid #777">&nbsp;</td>
+          <td width=10>&nbsp;</td>
+          <td nowrap>[var.strWordsApproved2]</td>
+        </tr>
+      </table>
+ <br>
+<script type="text/javascript">
+	var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('dataCode').value = "";
+        $('dataName').value = "";
+        $('dataDailyAllowance').checked = false;
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('dataCode').value = $F("detailCode" + idx);
+        $('dataName').value = $F("detailName" + idx);
+        $('dataDailyAllowance').checked = ($F("detailDailyAllowance" + idx) == 't');
+      }
+      $('dataCode').focus();
+    },
+    editDataTripCost : function(idx, bolChecked)
+    {
+      $('dataTripCost_' + idx).checked = bolChecked;
+    },
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    }
+	
+  }
+</script>

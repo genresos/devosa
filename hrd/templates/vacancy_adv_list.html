@@ -1,0 +1,70 @@
+<script type="text/javascript">
+  
+  function printList()
+  {
+    document.form1.target = '_blank';
+  }
+
+  function doSearch()
+  {
+    document.form1.target = '';
+  }
+
+  function exportExcel()
+  {
+    document.form1.target = '';
+  }
+  
+  var myClient = {
+    
+    confirmDelete : function()
+    {
+      document.form1.target = '';
+      return confirm('[var.strConfirmDelete]');
+    }
+  }
+</script>
+<form name="form1" id="form1" method="post">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td >&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong><a href="vacancy_adv_edit.php">[var.strWordsDataEntry] </a> 
+            | [var.strWordsAdvertisementList] 
+          </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td >&nbsp;</td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.DataGrid;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="25"></td>
+  </tr>
+</table>
+</form>
