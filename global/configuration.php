@@ -2,7 +2,7 @@
  date_default_timezone_set('Asia/Jakarta');
   //the host server address of database
   define("DB_TYPE","postgres");
-  define("DB_SERVER","192.168.0.15");
+  define("DB_SERVER","192.168.77.71");
   define("DB_PORT","5432");
   //define("DB_SERVER","invosaserver");
 
@@ -13,7 +13,7 @@
   define("DB_USER","postgres");
 
   //the database's user name
-  define("DB_PWD","T0g3th3r!!@@@_");
+  define("DB_PWD","sukasapi");
   define("INVERSE_PRORATE", FALSE);
 
   //the tax method 0=gross 1=gross up
@@ -31,7 +31,7 @@
   //copyright string/HTML
 
 
-  define("COPYRIGHT","Copyright &copy; 2008 by PT Invosa Systems.<br>All rights reserved.");
+  define("COPYRIGHT","Copyright &copy; 2024 by PT Tesco Indomaritim.<br>All rights reserved.");
 
 
 //default ENGLISH

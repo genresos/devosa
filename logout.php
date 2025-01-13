@@ -42,7 +42,11 @@
       <td>
         <table width="410" border="0" align="center" cellpadding="2" cellspacing="0" style="background-color: #ffffff; border: 1px solid lightgray">
           <tr>
-            <td align="center" class="logo"><a href="index.php"><img src="images/logo_front.gif" alt="logo" border=0 title="logo"></a></td>
+            <td align="center" class="logo">
+              <a href="index.php">
+                <img src="https://monitoring.marmin.co.id/assets/images/TESCO-01.png" alt="logo" border="0" title="logo" style="max-width: 200px; height: auto;">
+              </a>
+            </td>
           </tr>
           <tr>
             <td align="center" class="inputBox">
@@ -50,7 +54,7 @@
               <form action="index.php" name="LoginForm" method="post">
                 <table align='center' border="0" cellspacing="0" cellpadding="3">
                   <tr>
-                    <td align=center>You have been loged out from deVOSA</td>
+                    <td align=center>You have been logged out from deVOSA</td>
                   </tr>
                   <tr>
                     <td align=center><a href="index.php"><strong>Back to Login Page</strong></a></td>
