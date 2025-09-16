@@ -2,7 +2,7 @@
  date_default_timezone_set('Asia/Jakarta');
   //the host server address of database
   define("DB_TYPE","postgres");
-  define("DB_SERVER","192.168.77.71");
+  define("DB_SERVER","localhost");
   define("DB_PORT","5432");
   //define("DB_SERVER","invosaserver");
 
@@ -10,7 +10,7 @@
   define("DB_NAME","adyawinsa-dev");
 
   //the database's user password
-  define("DB_USER","postgres");
+  define("DB_USER","rian");
 
   //the database's user name
   define("DB_PWD","sukasapi");
@@ -31,7 +31,7 @@
   //copyright string/HTML
 
 
-  define("COPYRIGHT","Copyright &copy; 2024 by PT Tesco Indomaritim.<br>All rights reserved.");
+  define("COPYRIGHT","Copyright &copy; 2025 by Budi Lestari Hospital.<br>All rights reserved.");
 
 
 //default ENGLISH

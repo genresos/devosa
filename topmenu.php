@@ -137,7 +137,7 @@
             <?php
               $link = array(
                         array("url" => "main.php", "name" => strtoupper(getWords("home"))),
-                        array("url" => "help.php", "name" => strtoupper(getWords("help"))),
+                        // array("url" => "help.php", "name" => strtoupper(getWords("help"))),
                         array("url" => "changepwd.php", "name" => strtoupper(getWords("change password")))
                       );
               $strResult = "
